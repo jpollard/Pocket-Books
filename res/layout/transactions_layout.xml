@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	<LinearLayout android:id="@+id/header"
+		android:layout_alignParentTop="true" android:layout_height="wrap_content"
+		android:layout_width="fill_parent">
+		<TextView android:id="@+id/accountName"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content" 
+			android:layout_weight="1" 
+			android:text="Account Name">
+		</TextView>
+		<TextView android:id="@+id/accountBalance"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_gravity="right"
+			android:layout_weight="1"
+			android:text="$96.00">
+		</TextView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/footer"
+		android:layout_alignParentBottom="true" 
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent">
+		
+		<ImageView android:id="@+id/addTransactionIcon"
+			android:src="@android:drawable/ic_menu_add" 
+			android:layout_height="wrap_content" 
+			android:layout_width="wrap_content">
+		</ImageView>
+		
+		<TextView android:id="@+id/addTransactionText"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content" 
+			android:text="Add New Transaction" android:textSize="25dp" android:layout_gravity="center_vertical" android:layout_margin="10dp"></TextView>
+	</LinearLayout>
+	<ListView android:id="@+id/transactionListView" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:layout_below="@id/header"
+		android:layout_above="@id/footer">
+	</ListView>
+
+</RelativeLayout>

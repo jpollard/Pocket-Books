@@ -60,8 +60,8 @@ public class AccountData {
 	 * 
 	 * @return Cursor
 	 */
-	public Cursor getTables(){
-		Log.d(TAG, "Trying to get tables");
+	public Cursor getAccounts(){
+		Log.d(TAG, "Trying to get accounts");
 		Cursor cursor;
 		
 		// String array of colums to get from query for the cursor
@@ -73,8 +73,23 @@ public class AccountData {
 		
 		cursor = db.query(DBHelper.ACCOUNTS_TABLE, columnsToQuery, null, null, null, null, null);
 		Log.d(TAG, "returning tables in a cursor.");
-		return cursor;
+		return cursor;	
+	}
+	
+	public Cursor getTransactions(){
+		Log.d(TAG, "Trying to get transactions");
+		Cursor cursor;
+		String[] columsToQuery = {_ID, TRANSACTION_NAME, TRANSACTION_AMOUNT, TRANSACTION_DATE, TRANSACTION_CATEGORY};
 		
+		Log.d(TAG, "Trying to open DB");
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		Log.d(TAG, "Opened DB");
+		
+		Log.d(TAG, "Querying DB");
+		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columsToQuery, null, null, null, null, null);
+		Log.d(TAG, "returning tables in a cursor");
+		
+		return cursor;
 	}
 	
 	private class DBHelper extends SQLiteOpenHelper{

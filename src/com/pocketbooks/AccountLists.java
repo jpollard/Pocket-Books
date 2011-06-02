@@ -20,7 +20,7 @@ public class AccountLists extends Activity{
 	CursorAdapter cursorAdapter;
 	Cursor cursor;
 	ListView list;
-	TextView button;
+//	TextView button;
 		
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -47,7 +47,7 @@ public class AccountLists extends Activity{
         //Query current accountNames
         accounts = new AccountData(this);
         Log.d(TAG, "Starting getTables.");
-        cursor = accounts.getTables();
+        cursor = accounts.getAccounts();
         startManagingCursor(cursor);
         
         // Construct adapter
@@ -64,8 +64,10 @@ public class AccountLists extends Activity{
 			public void onItemClick(AdapterView<?> a, View v, int position, long id) {
 				// TODO Auto-generated method stub
 				Log.d(TAG, "id is " + id + " position is " + position + " action is " + getIntent().getAction());
-				Log.d(TAG, "Hopefully _id " + list.getItemIdAtPosition(position));
-				startActivity(transactionIntent);
+				Log.d(TAG, "Hopefully _id ");
+				cursor.moveToPosition(position);
+				Log.d(TAG, "" + cursor.getColumnIndex(AccountData._ID));
+				startActivity(transactionIntent.putExtra(AccountData._ID, id));
 			}
         	
         });

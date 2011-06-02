@@ -5,6 +5,9 @@
     android:layout_height="fill_parent"
     >
     
-    <ListView android:layout_width="fill_parent" android:id="@+id/accountNameListView" android:layout_height="fill_parent"></ListView>
+    <ListView android:layout_width="fill_parent" 
+    	android:id="@+id/accountNameListView" 
+    	android:layout_height="fill_parent">
+    </ListView>
 
 </LinearLayout>
