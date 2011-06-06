@@ -11,10 +11,9 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class AccountLists extends Activity{
+public class AccountsActivity extends Activity{
 	private static final String TAG = "ListActivity: ";
 	AccountData accounts;
 	CursorAdapter cursorAdapter;
@@ -27,13 +26,13 @@ public class AccountLists extends Activity{
 		Log.d(TAG, "Starting account");
 		
 		// Setup UI
-        setContentView(R.layout.main);
+        setContentView(R.layout.accounts_activity_layout);
         list = (ListView) findViewById(R.id.accountNameListView);
         
-        final Intent newAccountIntent = new Intent(this, NewAccount.class);
-        final Intent transactionIntent = new Intent(this, Transactions.class);
+        final Intent newAccountIntent = new Intent(this, NewAccountActivity.class);
+        final Intent transactionIntent = new Intent(this, TransactionsActivity.class);
         
-        View v = getLayoutInflater().inflate(R.layout.new_account_header, null);
+        View v = getLayoutInflater().inflate(R.layout.accounts_activity_header, null);
         v.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -53,7 +52,7 @@ public class AccountLists extends Activity{
         // Construct adapter
         int[] to = {R.id.account_name, R.id.account_balance};
         String[] from = {AccountData.ACCOUNT_NAME, AccountData.ACCOUNT_BALANCE};
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.accounts_row, cursor, from, to);
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.accounts_activity_listview_row, cursor, from, to);
         
         // Link ListView to adapter
         list.addHeaderView(v);
@@ -65,11 +64,32 @@ public class AccountLists extends Activity{
 				// TODO Auto-generated method stub
 				Log.d(TAG, "id is " + id + " position is " + position + " action is " + getIntent().getAction());
 				Log.d(TAG, "Hopefully _id ");
+				
 				cursor.moveToPosition(position);
-				Log.d(TAG, "" + cursor.getColumnIndex(AccountData._ID));
-				startActivity(transactionIntent.putExtra(AccountData._ID, id));
+				
+				//Log.d(TAG, "" + cursor.getString(cursor.getColumnIndex(AccountData.ACCOUNT_NAME) - 1));
+				
+				startActivity(transactionIntent.putExtra(AccountData.ACCOUNT_ID, id));
 			}
         	
         });
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		cursor.requery();
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		cursor.deactivate();
+	}
+
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		cursor.close();
 	}
 }

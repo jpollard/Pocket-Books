@@ -21,7 +21,7 @@
 	<LinearLayout android:id="@+id/footer"
 		android:layout_alignParentBottom="true" 
 		android:layout_height="wrap_content"
-		android:layout_width="fill_parent">
+		android:layout_width="fill_parent" android:clickable="true" android:focusable="true" android:hapticFeedbackEnabled="true">
 		
 		<ImageView android:id="@+id/addTransactionIcon"
 			android:src="@android:drawable/ic_menu_add" 

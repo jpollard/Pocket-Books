@@ -11,7 +11,8 @@ import android.util.Log;
 public class AccountData {
 	public static String ACCOUNT_NAME = "account_name";
 	public static String ACCOUNT_BALANCE = "account_balance";
-	public static String _ID = "_id";
+	public static String ACCOUNT_ID = "_id";
+	public static String TRANSACTION_ID = "_id";
 	public static String TRANSACTION_NUMBER = "transaction_number";
 	public static String TRANSACTION_AMOUNT = "transaction_amount"; 
 	public static String TRANSACTION_NAME = "transaction_name";
@@ -64,8 +65,8 @@ public class AccountData {
 		Log.d(TAG, "Trying to get accounts");
 		Cursor cursor;
 		
-		// String array of colums to get from query for the cursor
-		String[] columnsToQuery = {_ID, ACCOUNT_NAME, ACCOUNT_BALANCE};
+		// String array of columns to get from query for the cursor
+		String[] columnsToQuery = {ACCOUNT_ID, ACCOUNT_NAME, ACCOUNT_BALANCE};
 		Log.d(TAG, "Trying to open DB");
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Log.d(TAG, "Opened DB");
@@ -76,19 +77,33 @@ public class AccountData {
 		return cursor;	
 	}
 	
+	public Cursor getAccountInfo(Long id){
+		Log.d(TAG, "trying to get account info for account_id " + id);
+		Cursor cursor;
+		String[] columnsToQuery = {ACCOUNT_ID, ACCOUNT_NAME, ACCOUNT_BALANCE};
+		Log.d(TAG, "Trying to open DB");
+		
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		cursor = db.query(DBHelper.ACCOUNTS_TABLE, columnsToQuery, ACCOUNT_ID + " like " + Long.toString(id), null, null, null, null);
+		Log.d(TAG, "number of rows" + cursor.getCount());
+		Log.d(TAG, "returning tables in a cursor");
+		return cursor;
+	}
+	
 	public Cursor getTransactions(){
 		Log.d(TAG, "Trying to get transactions");
 		Cursor cursor;
-		String[] columsToQuery = {_ID, TRANSACTION_NAME, TRANSACTION_AMOUNT, TRANSACTION_DATE, TRANSACTION_CATEGORY};
+		String[] columnsToQuery = {TRANSACTION_ID, TRANSACTION_NAME, TRANSACTION_AMOUNT, TRANSACTION_DATE, TRANSACTION_CATEGORY};
 		
 		Log.d(TAG, "Trying to open DB");
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Log.d(TAG, "Opened DB");
 		
 		Log.d(TAG, "Querying DB");
-		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columsToQuery, null, null, null, null, null);
+		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columnsToQuery, null, null, null, null, null);
 		Log.d(TAG, "returning tables in a cursor");
-		
+		Log.d(TAG, cursor.getColumnName(cursor.getColumnIndex(TRANSACTION_ID)));
 		return cursor;
 	}
 	
@@ -109,16 +124,19 @@ public class AccountData {
 			
 			try {
 				// TODO Create category table
-				sql = String.format("CREATE TABLE %s(_id int primary key, account_name varchar, account_balance int)", ACCOUNTS_TABLE);
+				sql = String.format("CREATE TABLE %s(_id integer primary key autoincrement, " +
+						"account_name varchar, " +
+						"account_balance int)", ACCOUNTS_TABLE);
 				Log.d(TAG, "createTable sql: " + sql);
 				db.execSQL(sql);
-				sql = String.format("CREATE TABLE %s(_id int primary key, " +
-						"account_name varchar REFERENCES %s(account_name) NOT NULL, " +
-						"transaction_number int, transaction_amount int, " +
-						"transaction_name charvar, " +
-						"transaction_memo charvar, " +
-						"transaction_category charvar, " +
-						"transaction_date int)", 
+				
+				sql = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+						"account_id INTEGER REFERENCES %s(_id) NOT NULL, " +
+						"transaction_number INTEGER, transaction_amount FLOAT, " +
+						"transaction_name CHARVAR, " +
+						"transaction_memo CHARVAR, " +
+						"transaction_category CHARVAR, " +
+						"transaction_date DATE)", 
 						TRANSACTIONS_TABLE, ACCOUNTS_TABLE);
 				Log.d(TAG, "createTable sql: " + sql);
 				db.execSQL(sql);

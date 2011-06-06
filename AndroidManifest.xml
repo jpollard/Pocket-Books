@@ -5,16 +5,16 @@
     <uses-sdk android:minSdkVersion="7" />
 
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name="AccountLists"
+        <activity android:name="AccountsActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="NewAccount"></activity>
-        <activity android:name="Transactions"></activity>
-        <activity android:name="NewTransaction"></activity>
+        <activity android:name="NewAccountActivity"></activity>
+        <activity android:name="TransactionsActivity"></activity>
+        <activity android:name="NewTransactionActivity"></activity>
 
     </application>
 </manifest>

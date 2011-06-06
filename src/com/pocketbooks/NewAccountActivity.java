@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class NewAccount extends Activity {
+public class NewAccountActivity extends Activity {
 	private static String TAG = "newAccount";
 	EditText accountName;
 	EditText accountBalance;
@@ -22,7 +22,7 @@ public class NewAccount extends Activity {
 		accounts = new AccountData(this);
 		
 		// Setup GUI
-		setContentView(R.layout.create_new_account_layout);
+		setContentView(R.layout.new_account_activity_layout);
 		accountName = (EditText) findViewById(R.id.new_account_name_edit_text);
 		accountBalance = (EditText) findViewById(R.id.new_account_balance_edit_text);
 		done = (Button) findViewById(R.id.new_account_done_button);
