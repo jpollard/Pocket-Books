@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent" android:layout_height="wrap_content">
+  android:layout_width="fill_parent" android:layout_height="fill_parent">
     <TextView	android:id="@+id/transaction_name" 
     	android:layout_height="wrap_content" 
     	android:layout_width="wrap_content" 
-    	android:textSize="30dp">
+    	android:textSize="20dp">
     </TextView>
     <TextView android:id="@+id/transaction_amount"
     	android:layout_width="wrap_content" 
     	android:layout_alignParentRight="true" 
     	android:layout_height="wrap_content" 
-    	android:textSize="25dp">
+    	android:textSize="15dp">
     </TextView>
     <TextView android:id="@+id/transaction_date"
     	android:layout_width="wrap_content" 
     	android:layout_alignParentLeft="true" 
     	android:layout_below="@id/transaction_name"
     	android:layout_height="wrap_content" 
-    	android:textSize="20dp">
+    	android:textSize="10dp">
     </TextView>
     <TextView android:id="@+id/transaction_category"
     	android:layout_width="wrap_content" 

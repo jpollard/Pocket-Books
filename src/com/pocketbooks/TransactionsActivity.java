@@ -3,6 +3,7 @@ package com.pocketbooks;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,44 +23,47 @@ public class TransactionsActivity extends Activity {
 	TextView mAccountName;
 	TextView mAccountBalance;
 	LinearLayout mNewAccount;
-	
+	long id;
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Intent newTransaction = new Intent(this, NewTransactionActivity.class);
+        final Intent newTransactionIntent = new Intent(this, NewTransactionActivity.class);
         setContentView(R.layout.transactions_activity_layout);
         transactions = new AccountData(this);
         mAccountName = (TextView) findViewById(R.id.accountName);
         mAccountBalance = (TextView) findViewById(R.id.accountBalance);
+        transactionIntent = getIntent();
+        id = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
+        accountInfo = transactions.getAccountInfo(id);
+        accountInfo.moveToFirst();
+        startManagingCursor(accountInfo);
+        
         mNewAccount = (LinearLayout) findViewById(R.id.footer);
+        
+        
         mNewAccount.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				startActivity(newTransactionIntent.putExtra(AccountData.ACCOUNT_ID, id));
 			}
         	
         });
 
-        transactionIntent = getIntent();
-        long id = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
-        accountInfo = transactions.getAccountInfo(id);
-        accountInfo.moveToFirst();
-        startManagingCursor(accountInfo);
         
-        Log.d(TAG, "" + accountInfo.getColumnCount());
-        mAccountName.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_NAME)));
-        mAccountBalance.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_BALANCE)));
-        
-        
+//        Log.d(TAG, "" + accountInfo.getColumnCount());
+//        mAccountName.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_NAME)));
+//        mAccountBalance.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_BALANCE)));
+//        
+//        
         
         list = (ListView) findViewById(R.id.transactionListView);
         
         Log.d(TAG, "Getting transactions");
-        cursor = transactions.getTransactions();
+        cursor = transactions.getTransactions(id);
         startManagingCursor(cursor);
         
         int[] to = {R.id.transaction_name, R.id.transaction_amount, R.id.transaction_date, R.id.transaction_category};
@@ -76,6 +80,21 @@ public class TransactionsActivity extends Activity {
     	Log.d(TAG, "transactionActivity: onResume");
     	accountInfo.requery();
     	cursor.requery();
+    	
+    	accountInfo.moveToFirst();
+    	Log.d(TAG, "" + accountInfo.getColumnCount());
+    	
+    	String accountBalance = accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_BALANCE));
+    	mAccountBalance.setTextColor(Color.GREEN);
+    	
+    	if(Float.parseFloat(accountBalance) < 0){
+    		mAccountBalance.setTextColor(Color.RED);
+    	}
+    	
+        mAccountName.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_NAME)));
+        mAccountBalance.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_BALANCE)));
+        
+        
     }
     
     
@@ -88,9 +107,18 @@ public class TransactionsActivity extends Activity {
     }
     
     @Override
+    public void onStop(){
+    	super.onStop();
+    	Log.d(TAG, "transactionActivity: onStop");
+    }
+    
+    @Override
     public void onDestroy(){
     	super.onDestroy();
+    	
     	accountInfo.close();
     	cursor.close();
+    	
+    	transactions.close();
     }
 }

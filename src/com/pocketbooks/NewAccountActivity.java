@@ -31,19 +31,19 @@ public class NewAccountActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				int balance = 0;
+				float balance = 0;
 				if(accountName.getText() != null){
 					if(accountBalance.getText().length() != 0){
 						Log.d(TAG, "this is the getText..." + accountBalance.getEditableText());
 						try{
-							balance = Integer.parseInt(accountBalance.getText().toString());
+							balance = Float.parseFloat(accountBalance.getText().toString());
 						} catch(NumberFormatException e){
 							balance = 0;
 							Log.d(TAG, "ERROR! ERROR! \"balance\" not a number!!!!");
 						}
 					}
 					Log.d(TAG, "about to create table " + accountName.getText().toString() + " with a value of " + balance);
-					accounts.createTable(accountName.getText().toString(), balance);
+					accounts.createAccount(accountName.getText().toString(), balance);
 				}
 				finish();
 			}	

@@ -91,5 +91,6 @@ public class AccountsActivity extends Activity{
 	public void onDestroy(){
 		super.onDestroy();
 		cursor.close();
+		accounts.close();
 	}
 }
