@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -29,6 +30,7 @@ public class TransactionsActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         final Intent newTransactionIntent = new Intent(this, NewTransactionActivity.class);
         setContentView(R.layout.transactions_activity_layout);
         transactions = new AccountData(this);
@@ -51,14 +53,7 @@ public class TransactionsActivity extends Activity {
 				startActivity(newTransactionIntent.putExtra(AccountData.ACCOUNT_ID, id));
 			}
         	
-        });
-
-        
-//        Log.d(TAG, "" + accountInfo.getColumnCount());
-//        mAccountName.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_NAME)));
-//        mAccountBalance.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_BALANCE)));
-//        
-//        
+        });  
         
         list = (ListView) findViewById(R.id.transactionListView);
         
@@ -66,12 +61,27 @@ public class TransactionsActivity extends Activity {
         cursor = transactions.getTransactions(id);
         startManagingCursor(cursor);
         
-        int[] to = {R.id.transaction_name, R.id.transaction_amount, R.id.transaction_date, R.id.transaction_category};
-        String[] from = {AccountData.TRANSACTION_NAME, AccountData.TRANSACTION_AMOUNT, AccountData.TRANSACTION_DATE, AccountData.TRANSACTION_CATEGORY};
+        int[] to = {R.id.transaction_name, R.id.transaction_amount, R.id.transaction_date, R.id.transaction_category, R.id.transaction_memo};
+        String[] from = {AccountData.TRANSACTION_NAME, AccountData.TRANSACTION_AMOUNT, AccountData.TRANSACTION_DATE, AccountData.TRANSACTION_CATEGORY, AccountData.TRANSACTION_MEMO};
+        
         Log.d(TAG, "Starting adapter");
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.transactions_activity_listview_row, cursor, from, to);
+        
+        list.setOnLongClickListener(new OnLongClickListener(){
+
+			@Override
+			public boolean onLongClick(View arg0) {
+				// TODO Auto-generated method stub
+				startActivity(newTransactionIntent);
+				return false;
+			}
+        	
+        });
+        
         Log.d(TAG, "Setting adapter");
         list.setAdapter(adapter);
+        
+        
     }
     
     @Override

@@ -132,26 +132,44 @@ public class AccountData {
 	}
 	
 	/**
+	 * <b> public Cursor getTransaction(Long id) </b>
 	 * 
-	 * public Cursor getTransactions(long id)
+	 * Get the details of the transaction that has the _id passed in by the parameter.
+	 * 
+	 * @param id - the transaction id of the transaction that the info needs to come from
+	 * @return - cursor populated with the request data
+	 */
+	public Cursor getTransactionInfo(Long id){
+		Log.d(TAG, "trying to get transaction info for transaction_id " + id);
+		Cursor cursor;
+		String[] columnsToQuery = {AccountData.TRANSACTION_NAME, AccountData.TRANSACTION_AMOUNT, AccountData.TRANSACTION_DATE, AccountData.TRANSACTION_CATEGORY, AccountData.TRANSACTION_MEMO};
+		db = dbHelper.getReadableDatabase();
+		
+		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columnsToQuery, TRANSACTION_ID + " LIKE " + Long.toString(id), null, null, null, null);
+		return cursor;
+	}
+	
+	/**
 	 * 
 	 * Get the list of "transactions" from the TRANSACTION_TABLE based on the "id" of the the account that
 	 * they are associated with.
 	 * 
-	 * @param id
-	 * @return Cursor
+	 * public Cursor getTransactions(long id)
+	 * 
+	 * @param id - the account from which transactions are being requested.
+	 * @return - cursor of the transactions based on the id passed in.
 	 */
 	public Cursor getTransactions(long id){
 		Log.d(TAG, "Trying to get transactions");
 		Cursor cursor;
-		String[] columnsToQuery = {TRANSACTION_ID,TRANSACTION_ACCOUNT_ID, TRANSACTION_NAME, TRANSACTION_AMOUNT, TRANSACTION_DATE, TRANSACTION_CATEGORY};
+		String[] columnsToQuery = {TRANSACTION_ID, TRANSACTION_ACCOUNT_ID, TRANSACTION_NAME, TRANSACTION_AMOUNT, TRANSACTION_DATE, TRANSACTION_CATEGORY, TRANSACTION_MEMO};
 		
 		Log.d(TAG, "Trying to open DB");
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Log.d(TAG, "Opened DB");
 		
 		Log.d(TAG, "Querying DB");
-		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columnsToQuery, TRANSACTION_ACCOUNT_ID + " like " + id, null, null, null, null);
+		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columnsToQuery, TRANSACTION_ACCOUNT_ID + " like " + id, null, null, null, TRANSACTION_DATE + " DESC");
 		Log.d(TAG, "returning tables in a cursor");
 		Log.d(TAG, cursor.getColumnName(cursor.getColumnIndex(TRANSACTION_ID)));
 		
@@ -160,17 +178,17 @@ public class AccountData {
 	}
 	
 	/**
-	 * public void addTransaction(long id, String payee, BigDecimal amount, String date, String memo)
+	 * <b>public void addTransaction(long id, String payee, BigDecimal amount, String date, String memo)</b>
 	 * 
-	 * Add a new transaction to the TRANSACTIONS_TABLE where "id" is the account id to associate the 
+	 * Add a new transaction to the TRANSACTIONS_TABLE, where "id" is the account id to associate the 
 	 * transaction with it, "payee" is the person the transaction is for/from, "amount" is the amount, 
 	 * "date" is the date, "memo" is the memo of the transaction.
 	 * 
-	 * @param id
-	 * @param payee
-	 * @param amount
-	 * @param date
-	 * @param memo
+	 * @param id - the account_id that the transaction belongs to
+	 * @param payee - a string to described the name of the transaction (i.e. "Walmart" or "Paycheck")
+	 * @param amount - the amount of the transaction
+	 * @param date - a string date of the transaction
+	 * @param memo - a simple, but more thorough description of the transaction (i.e. "Groceries" or "2/17/09 - 2/24/09")
 	 */
 	public void addTransaction(long id, String payee, BigDecimal amount, String date, String memo){
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -188,6 +206,17 @@ public class AccountData {
 		db.close();
 	}
 	
+	/**
+	 * Delete transaction from the TRANSACTIONS_TABLE based on the "id" parameter.
+	 * 
+	 * @param id - the id of the transaction to delete.
+	 */
+	public void deleteTransaction(long id){
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		
+		//db.delete(DBHelper.TRANSACTIONS_TABLE, whereClause, whereArgs)
+	}
 	/**
 	 * 
 	 * @author jwp
@@ -231,8 +260,24 @@ public class AccountData {
 						"BEGIN " +
 						"UPDATE %s SET " +
 						"account_balance = (account_balance + new.transaction_amount) " +
-								"WHERE _id = new.account_id; end;" 
+						"WHERE _id = new.account_id; end;" 
 								, TRANSACTIONS_TABLE, ACCOUNTS_TABLE);
+				db.execSQL(sql);
+				
+				sql = String.format("CREATE TRIGGER transaction_delete_trigger BEFORE DELETE ON %s " +
+						"BEGIN " +
+						"UPDATE %s SET " +
+						"account_balance = (account_balance - old.transaction_amount) " +
+						"WHERE _id = old.account_id; end;" , TRANSACTIONS_TABLE, ACCOUNTS_TABLE);
+				
+				sql = String.format("CREATE INDEX account_id_index ON %s (%s)", TRANSACTIONS_TABLE, TRANSACTION_ACCOUNT_ID);
+				db.execSQL(sql);
+				
+				sql = String.format("CREATE TRIGGER transaction_update_trigger BEFORE UPDATE ON %s " +
+						"BEGIN " +
+						"UPDATE %s SET " +
+						"account_balance = (account_balance - old.transaction_amount + new.transaction_amount) " +
+						"WHERE _id = old.account_id; end;", TRANSACTIONS_TABLE, ACCOUNTS_TABLE);
 				db.execSQL(sql);
 				
 				Log.d(TAG, "done with TABLES");

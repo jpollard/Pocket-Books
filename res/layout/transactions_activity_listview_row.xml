@@ -15,8 +15,8 @@
     </TextView>
     <TextView android:id="@+id/transaction_date"
     	android:layout_width="wrap_content" 
-    	android:layout_alignParentLeft="true" 
-    	android:layout_below="@id/transaction_name"
+    	android:layout_alignParentRight="true" 
+    	android:layout_below="@id/transaction_amount"
     	android:layout_height="wrap_content" 
     	android:textSize="10dp">
     </TextView>
@@ -26,5 +26,10 @@
     	android:layout_height="wrap_content" 
     	android:layout_alignLeft="@+id/transaction_date" 
     	android:textSize="15dp">
+    </TextView>
+    <TextView android:id="@+id/transaction_memo"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@id/transaction_name">
     </TextView>
 </RelativeLayout>
