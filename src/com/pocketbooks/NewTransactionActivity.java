@@ -99,6 +99,7 @@ public class NewTransactionActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				String payeeString = payeeEditText.getEditableText().toString();
+				
 				BigDecimal amountBD = new BigDecimal(0.00);
 				amountBD = amountBD.setScale(2, BigDecimal.ROUND_HALF_UP);
 				

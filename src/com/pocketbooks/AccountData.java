@@ -108,6 +108,18 @@ public class AccountData {
 	}
 	
 	/**
+	 * <b> public void deleteAccount (Long id) </b>
+	 * Delete the account as specified by the id, as well as the transactions registered to the account.
+	 * 
+	 * @param id - _id of the account
+	 */
+	public void deleteAccount(Long id){
+		Log.d(TAG, "delectAccount");
+		
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		db.delete(DBHelper.ACCOUNTS_TABLE, "_id = " + id, null);
+	}
+	/**
 	 * public Cursor getAccountInfo(Long id)
 	 * 
 	 * This returns a Cursor that is populated with the info of one of the ACCOUNTS_TABLE rows, specified by
@@ -132,7 +144,7 @@ public class AccountData {
 	}
 	
 	/**
-	 * <b> public Cursor getTransaction(Long id) </b>
+	 * <b> public Cursor getTransactionInfo(Long id) </b>
 	 * 
 	 * Get the details of the transaction that has the _id passed in by the parameter.
 	 * 
@@ -185,7 +197,7 @@ public class AccountData {
 	 * "date" is the date, "memo" is the memo of the transaction.
 	 * 
 	 * @param id - the account_id that the transaction belongs to
-	 * @param payee - a string to described the name of the transaction (i.e. "Walmart" or "Paycheck")
+	 * @param payee - a string to describe the name of the transaction (i.e. "Walmart" or "Paycheck")
 	 * @param amount - the amount of the transaction
 	 * @param date - a string date of the transaction
 	 * @param memo - a simple, but more thorough description of the transaction (i.e. "Groceries" or "2/17/09 - 2/24/09")
@@ -193,7 +205,7 @@ public class AccountData {
 	public void addTransaction(long id, String payee, BigDecimal amount, String date, String memo){
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		
-		amount.setScale(2, BigDecimal.ROUND_HALF_UP);
+		amount = amount.setScale(2, BigDecimal.ROUND_HALF_UP);
 		
 		ContentValues values = new ContentValues();
 		values.put(AccountData.TRANSACTION_ACCOUNT_ID, id);
@@ -207,6 +219,37 @@ public class AccountData {
 	}
 	
 	/**
+	 * <b> public void updateTransaction (long id, String payee, BigDecimal amount, String date, String memo)</b>
+	 * 
+	 * Update the transaction represented by id to the new values that have been passed in.
+	 * 
+	 * @param id - the transaction id
+	 * @param payee - a string to describe the name of the transaction (i.e. "Walmart" or "Paycheck")
+	 * @param amount - the amount of the transaction
+	 * @param date - a string date of the transaction
+	 * @param memo - a simple, but more thorough description of the transaction (i.e. "Groceries" or "2/17/09")
+	 * 
+	 * 
+	 */
+	public void updateTransaction(long id, String payee, BigDecimal amount, String date, String memo){
+		Log.d(TAG, "Updating Transaction");
+		
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		amount = amount.setScale(2, BigDecimal.ROUND_HALF_UP);
+		
+		ContentValues values = new ContentValues();
+		values.put(AccountData.TRANSACTION_NAME, payee);
+		values.put(AccountData.TRANSACTION_AMOUNT, amount.toPlainString());
+		values.put(AccountData.TRANSACTION_DATE, date);
+		values.put(AccountData.TRANSACTION_MEMO, memo);
+		
+		db.update(DBHelper.TRANSACTIONS_TABLE, values, "_id = " + id, null);
+		db.close();
+	}
+	/**
+	 * <b> public void deleteTransaction (long id)</b>
+	 * 
 	 * Delete transaction from the TRANSACTIONS_TABLE based on the "id" parameter.
 	 * 
 	 * @param id - the id of the transaction to delete.
@@ -214,8 +257,7 @@ public class AccountData {
 	public void deleteTransaction(long id){
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		
-		
-		//db.delete(DBHelper.TRANSACTIONS_TABLE, whereClause, whereArgs)
+		db.delete(DBHelper.TRANSACTIONS_TABLE, "_id = " + id, null);
 	}
 	/**
 	 * 
@@ -239,12 +281,15 @@ public class AccountData {
 			
 			try {
 				// TODO Create category table
+				
+				//Create Accounts table
 				sql = String.format("CREATE TABLE %s(_id integer primary key autoincrement, " +
 						"account_name varchar, " +
 						"account_balance FLOAT)", ACCOUNTS_TABLE);
 				Log.d(TAG, "createTable sql: " + sql);
 				db.execSQL(sql);
 				
+				//Create Transactions table
 				sql = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 						"account_id INTEGER REFERENCES %s(_id) NOT NULL, " +
 						"transaction_number INTEGER, transaction_amount FLOAT, " +
@@ -256,6 +301,8 @@ public class AccountData {
 				Log.d(TAG, "createTable sql: " + sql);
 				db.execSQL(sql);
 				
+				
+				//Create insert trigger
 				sql = String.format("CREATE TRIGGER transaction_insert_trigger BEFORE INSERT ON %s " +
 						"BEGIN " +
 						"UPDATE %s SET " +
@@ -264,15 +311,25 @@ public class AccountData {
 								, TRANSACTIONS_TABLE, ACCOUNTS_TABLE);
 				db.execSQL(sql);
 				
+				//Create account delete trigger
+				sql = String.format("CREATE TRIGGER account_delete_trigger BEFORE DELETE ON %s " +
+						"BEGIN " +
+						"DELETE * FROM %s WHERE account_id = old._id; end; ", ACCOUNTS_TABLE, TRANSACTIONS_TABLE);
+				db.execSQL(sql);
+				
+				//Create transaction delete trigger
 				sql = String.format("CREATE TRIGGER transaction_delete_trigger BEFORE DELETE ON %s " +
 						"BEGIN " +
 						"UPDATE %s SET " +
 						"account_balance = (account_balance - old.transaction_amount) " +
 						"WHERE _id = old.account_id; end;" , TRANSACTIONS_TABLE, ACCOUNTS_TABLE);
+				db.execSQL(sql);
 				
+				//Create index 
 				sql = String.format("CREATE INDEX account_id_index ON %s (%s)", TRANSACTIONS_TABLE, TRANSACTION_ACCOUNT_ID);
 				db.execSQL(sql);
 				
+				//Create update trigger
 				sql = String.format("CREATE TRIGGER transaction_update_trigger BEFORE UPDATE ON %s " +
 						"BEGIN " +
 						"UPDATE %s SET " +
@@ -281,6 +338,7 @@ public class AccountData {
 				db.execSQL(sql);
 				
 				Log.d(TAG, "done with TABLES");
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				Log.d(TAG, "FAIL!!!__________________----------------------------------------------------------------------------------------------------------------- : " + e);

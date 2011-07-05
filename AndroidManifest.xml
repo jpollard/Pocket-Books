@@ -15,6 +15,7 @@
         <activity android:name="NewAccountActivity"></activity>
         <activity android:name="TransactionsActivity"></activity>
         <activity android:name="NewTransactionActivity"></activity>
+        <activity android:name="EditTransactionActivity"></activity>
 
     </application>
 </manifest>
