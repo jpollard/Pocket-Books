@@ -5,12 +5,17 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class AccountsActivity extends Activity{
@@ -57,6 +62,7 @@ public class AccountsActivity extends Activity{
         // Link ListView to adapter
         list.addHeaderView(v);
         list.setAdapter(adapter);
+        registerForContextMenu(list);
         list.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -93,4 +99,29 @@ public class AccountsActivity extends Activity{
 		cursor.close();
 		accounts.close();
 	}
+	
+	// Context Menu
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo ){
+    	super.onCreateContextMenu(menu, v, menuInfo);
+    	
+    	MenuInflater inflater =  getMenuInflater();
+    	inflater.inflate(R.menu.accounts_menu, menu);
+    	
+    }
+    
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+    	
+    	switch(item.getItemId()){
+    		case R.id.account_delete:
+    			Log.d(TAG, "Deleting account with id " + info.id);
+    			accounts.deleteAccount(info.id);
+    			cursor.deactivate();
+    			cursor.requery();
+    			return true;
+    	}
+    	return false;
+    }
 }

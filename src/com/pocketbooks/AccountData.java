@@ -314,7 +314,7 @@ public class AccountData {
 				//Create account delete trigger
 				sql = String.format("CREATE TRIGGER account_delete_trigger BEFORE DELETE ON %s " +
 						"BEGIN " +
-						"DELETE * FROM %s WHERE account_id = old._id; end; ", ACCOUNTS_TABLE, TRANSACTIONS_TABLE);
+						"DELETE FROM %s WHERE account_id = old._id; end; ", ACCOUNTS_TABLE, TRANSACTIONS_TABLE);
 				db.execSQL(sql);
 				
 				//Create transaction delete trigger
