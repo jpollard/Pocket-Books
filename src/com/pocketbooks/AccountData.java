@@ -1,6 +1,9 @@
 package com.pocketbooks;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,9 +11,15 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
 import android.util.Log;
 
 public class AccountData {
+	public static int GREEN = Color.parseColor("#216C2A");
+	public static int YELLOW = Color.parseColor("#F6FFDA");
+	public static int RED = Color.parseColor("#C6372F");
+	public static int YELLOWGREEN = Color.parseColor("#bfdeb9");
+	
 	public static String ACCOUNT_NAME = "account_name";
 	public static String ACCOUNT_BALANCE = "account_balance";
 	public static String ACCOUNT_ID = "_id";
@@ -23,6 +32,10 @@ public class AccountData {
 	public static String TRANSACTION_CATEGORY = "transaction_category";
 	public static String TRANSACTION_DATE = "transaction_date"; 
 	
+	NumberFormat nf = NumberFormat.getInstance(Locale.US);
+	
+	DecimalFormat myFormatter =  (DecimalFormat) NumberFormat.getInstance(Locale.US);
+
 	private static final String TAG = AccountData.class.getSimpleName();
 	Context context;
 	DBHelper dbHelper;
@@ -63,14 +76,21 @@ public class AccountData {
 	 * 
 	 * @param name, balance
 	 */
-	public void createAccount(String name, float balance){
+	public void createAccount(String name, BigDecimal balance){
 		ContentValues values = new ContentValues();
 		db = dbHelper.getWritableDatabase();
-				
-		values.put(ACCOUNT_NAME, name);
-		values.put(ACCOUNT_BALANCE, balance);
-		db.beginTransaction();
 		
+		balance = balance.movePointRight(2);
+		
+		
+		values.put(ACCOUNT_NAME, name);
+		values.put(ACCOUNT_BALANCE, balance.toPlainString());
+		
+		Log.d(TAG, "Inital balance : " + balance.toPlainString());
+		Log.d(TAG, "Account Name : " + name);
+		Log.d(TAG, values.toString());
+		
+		db.beginTransaction();
 		try{
 			db.insert(DBHelper.ACCOUNTS_TABLE, null, values);
 			Log.d(TAG, "createTable sql: " + name);
@@ -96,14 +116,15 @@ public class AccountData {
 		
 		// String array of columns to get from query for the cursor
 		String[] columnsToQuery = {ACCOUNT_ID, ACCOUNT_NAME, ACCOUNT_BALANCE};
+		
 		Log.d(TAG, "Trying to open DB");
 		db = dbHelper.getReadableDatabase();
 		Log.d(TAG, "Opened DB");
-		Log.d(TAG, "Querying DB");
 		
+		Log.d(TAG, "Querying DB");
 		cursor = db.query(DBHelper.ACCOUNTS_TABLE, columnsToQuery, null, null, null, null, null);
 		
-		Log.d(TAG, "returning tables in a cursor.");
+		Log.d(TAG, "returning tables in a cursor. " + cursor.toString());
 		return cursor;	
 	}
 	
@@ -119,8 +140,9 @@ public class AccountData {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		db.delete(DBHelper.ACCOUNTS_TABLE, "_id = " + id, null);
 	}
+	
 	/**
-	 * public Cursor getAccountInfo(Long id)
+	 * <b> public Cursor getAccountInfo (Long id) </b>
 	 * 
 	 * This returns a Cursor that is populated with the info of one of the ACCOUNTS_TABLE rows, specified by
 	 * the 'id' parameter.
@@ -137,7 +159,7 @@ public class AccountData {
 		db = dbHelper.getReadableDatabase();
 		
 		cursor = db.query(DBHelper.ACCOUNTS_TABLE, columnsToQuery, ACCOUNT_ID + " like " + Long.toString(id), null, null, null, null);
-		Log.d(TAG, "number of rows" + cursor.getCount());
+		Log.d(TAG, "number of rows" + cursor.getCount() + " : " + cursor.toString());
 		
 		Log.d(TAG, "returning tables in a cursor");
 		return cursor;
@@ -158,6 +180,7 @@ public class AccountData {
 		db = dbHelper.getReadableDatabase();
 		
 		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columnsToQuery, TRANSACTION_ID + " LIKE " + Long.toString(id), null, null, null, null);
+		Log.d(TAG,cursor.toString());
 		return cursor;
 	}
 	
@@ -181,7 +204,7 @@ public class AccountData {
 		Log.d(TAG, "Opened DB");
 		
 		Log.d(TAG, "Querying DB");
-		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columnsToQuery, TRANSACTION_ACCOUNT_ID + " like " + id, null, null, null, TRANSACTION_DATE + " DESC");
+		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columnsToQuery, TRANSACTION_ACCOUNT_ID + " like " + id, null, null, null, TRANSACTION_DATE + " ASC");
 		Log.d(TAG, "returning tables in a cursor");
 		Log.d(TAG, cursor.getColumnName(cursor.getColumnIndex(TRANSACTION_ID)));
 		
@@ -201,11 +224,15 @@ public class AccountData {
 	 * @param amount - the amount of the transaction
 	 * @param date - a string date of the transaction
 	 * @param memo - a simple, but more thorough description of the transaction (i.e. "Groceries" or "2/17/09 - 2/24/09")
+	 *
 	 */
-	public void addTransaction(long id, String payee, BigDecimal amount, String date, String memo){
+	public void addTransaction(long id, String payee, BigDecimal amount, long date, String memo){
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		
 		amount = amount.setScale(2, BigDecimal.ROUND_HALF_UP);
+		amount = amount.movePointRight(2);
+		
+		
 		
 		ContentValues values = new ContentValues();
 		values.put(AccountData.TRANSACTION_ACCOUNT_ID, id);
@@ -229,14 +256,14 @@ public class AccountData {
 	 * @param date - a string date of the transaction
 	 * @param memo - a simple, but more thorough description of the transaction (i.e. "Groceries" or "2/17/09")
 	 * 
-	 * 
 	 */
-	public void updateTransaction(long id, String payee, BigDecimal amount, String date, String memo){
+	public void updateTransaction(long id, String payee, BigDecimal amount, long date, String memo){
 		Log.d(TAG, "Updating Transaction");
 		
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		
 		amount = amount.setScale(2, BigDecimal.ROUND_HALF_UP);
+		amount = amount.movePointRight(2);
 		
 		ContentValues values = new ContentValues();
 		values.put(AccountData.TRANSACTION_NAME, payee);
@@ -247,6 +274,7 @@ public class AccountData {
 		db.update(DBHelper.TRANSACTIONS_TABLE, values, "_id = " + id, null);
 		db.close();
 	}
+	
 	/**
 	 * <b> public void deleteTransaction (long id)</b>
 	 * 
@@ -285,14 +313,14 @@ public class AccountData {
 				//Create Accounts table
 				sql = String.format("CREATE TABLE %s(_id integer primary key autoincrement, " +
 						"account_name varchar, " +
-						"account_balance FLOAT)", ACCOUNTS_TABLE);
+						"account_balance TEXT)", ACCOUNTS_TABLE);
 				Log.d(TAG, "createTable sql: " + sql);
 				db.execSQL(sql);
 				
 				//Create Transactions table
 				sql = String.format("CREATE TABLE %s(_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 						"account_id INTEGER REFERENCES %s(_id) NOT NULL, " +
-						"transaction_number INTEGER, transaction_amount FLOAT, " +
+						"transaction_number INTEGER, transaction_amount INTEGER, " +
 						"transaction_name CHARVAR, " +
 						"transaction_memo CHARVAR, " +
 						"transaction_category CHARVAR, " +
@@ -323,6 +351,7 @@ public class AccountData {
 						"UPDATE %s SET " +
 						"account_balance = (account_balance - old.transaction_amount) " +
 						"WHERE _id = old.account_id; end;" , TRANSACTIONS_TABLE, ACCOUNTS_TABLE);
+				Log.d(TAG, sql);
 				db.execSQL(sql);
 				
 				//Create index 
@@ -337,7 +366,7 @@ public class AccountData {
 						"WHERE _id = old.account_id; end;", TRANSACTIONS_TABLE, ACCOUNTS_TABLE);
 				db.execSQL(sql);
 				
-				Log.d(TAG, "done with TABLES");
+				Log.d(TAG, "done with TABLES############################################");
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

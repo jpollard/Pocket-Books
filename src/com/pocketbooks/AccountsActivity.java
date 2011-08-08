@@ -3,18 +3,21 @@ package com.pocketbooks;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -24,29 +27,51 @@ public class AccountsActivity extends Activity{
 	CursorAdapter cursorAdapter;
 	Cursor cursor;
 	ListView list;
-//	TextView button;
+	LinearLayout mNewAccount;
+	LinearLayout header;
+	TextView headerId;
 		
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "Starting account");
 		
 		// Setup UI
+		//requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.accounts_activity_layout);
+        
+        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.pocketbooks_header);
+        
+        header = (LinearLayout) findViewById(R.id.header);
+        header.setBackgroundColor(Color.parseColor("#216C2A")); 
+        headerId = (TextView) findViewById(R.id.header_account);
+        headerId.setTextColor(Color.WHITE);
+        headerId.setText("Pocket Book :: Accounts");
         list = (ListView) findViewById(R.id.accountNameListView);
         
         final Intent newAccountIntent = new Intent(this, NewAccountActivity.class);
         final Intent transactionIntent = new Intent(this, TransactionsActivity.class);
         
-        View v = getLayoutInflater().inflate(R.layout.accounts_activity_header, null);
-        v.setOnClickListener(new OnClickListener(){
+//        View v = getLayoutInflater().inflate(R.layout.accounts_activity_header, null);
+//        v.setOnClickListener(new OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				Log.d(TAG, "Clickity Clack: in onClick method in AccountLists starting NewAccountActivity.");
+//				startActivity(newAccountIntent);
+//				
+//			}	
+//        });
+       
+        mNewAccount = (LinearLayout) findViewById(R.id.footer);  
+        mNewAccount.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				Log.d(TAG, "Clickity Clack: in onClick method in AccountLists starting NewAccountActivity.");
+				// TODO Auto-generated method stub
 				startActivity(newAccountIntent);
-				
-			}	
-        });
+			}
+        	
+        }); 
         
         //Query current accountNames
         accounts = new AccountData(this);
@@ -57,10 +82,10 @@ public class AccountsActivity extends Activity{
         // Construct adapter
         int[] to = {R.id.account_name, R.id.account_balance};
         String[] from = {AccountData.ACCOUNT_NAME, AccountData.ACCOUNT_BALANCE};
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.accounts_activity_listview_row, cursor, from, to);
+        AccountAdapter adapter = new AccountAdapter(this, R.layout.accounts_activity_listview_row, cursor, from, to);
         
         // Link ListView to adapter
-        list.addHeaderView(v);
+        //list.addHeaderView(v);
         list.setAdapter(adapter);
         registerForContextMenu(list);
         list.setOnItemClickListener(new OnItemClickListener(){

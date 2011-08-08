@@ -1,5 +1,7 @@
 package com.pocketbooks;
 
+import java.math.BigDecimal;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +15,7 @@ public class NewAccountActivity extends Activity {
 	EditText accountName;
 	EditText accountBalance;
 	Button done;
-	AccountData accounts;
+	AccountData accounts;  
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -31,20 +33,21 @@ public class NewAccountActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				float balance = 0;
+				BigDecimal balance = new BigDecimal("0.00");
+				
 				if(accountName.getText() != null){
 					if(accountBalance.getText().length() != 0){
 						Log.d(TAG, "this is the getText..." + accountBalance.getEditableText());
 						try{
-							balance = Float.parseFloat(accountBalance.getText().toString());
+							balance = new BigDecimal(accountBalance.getText().toString());
+							balance = balance.setScale(2, BigDecimal.ROUND_HALF_UP);
 						} catch(NumberFormatException e){
-							balance = 0;
 							Log.d(TAG, "ERROR! ERROR! \"balance\" not a number!!!!");
 						}
 					}
 					Log.d(TAG, "about to create table " + accountName.getText().toString() + " with a value of " + balance);
 					accounts.createAccount(accountName.getText().toString(), balance);
-				}
+									}
 				finish();
 			}	
 		});

@@ -2,6 +2,7 @@ package com.pocketbooks;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -101,10 +102,12 @@ public class NewTransactionActivity extends Activity {
 				String payeeString = payeeEditText.getEditableText().toString();
 				
 				BigDecimal amountBD = new BigDecimal(0.00);
-				amountBD = amountBD.setScale(2, BigDecimal.ROUND_HALF_UP);
+				
+				
 				
 				if(amountEditText.length() > 0){
 					amountBD = new BigDecimal(amountEditText.getEditableText().toString());
+					amountBD = amountBD.setScale(2, BigDecimal.ROUND_HALF_UP);
 					
 					if(withdrawlRadioButton.isChecked()){
 						Log.d(TAG, "NEGATE!!!!! Biatch!");
@@ -112,10 +115,16 @@ public class NewTransactionActivity extends Activity {
 					}
 				}
 				
-				String dateString = dateEditText.getText().toString();
+				
+				//String dateString = dateEditText.getText().toString();
+				
+				Calendar cal = Calendar.getInstance();
+				cal.set(year, month, day);
+				
 				String memoString = noteEditText.getEditableText().toString();
 				
-				accounts.addTransaction(id, payeeString, amountBD, dateString, memoString);
+				
+				accounts.addTransaction(id, payeeString, amountBD, cal.getTimeInMillis(), memoString);
 				finish();
 			}
 		});

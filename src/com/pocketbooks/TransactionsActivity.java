@@ -1,5 +1,7 @@
 package com.pocketbooks;
 
+import java.math.BigDecimal;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +21,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class TransactionsActivity extends Activity {
 	private static String TAG = "PocketBooks::Transactions Activity";
+	
 	ListView list;
 	AccountData transactions;
 	Cursor accountInfo;
@@ -28,6 +31,7 @@ public class TransactionsActivity extends Activity {
 	TextView mAccountName;
 	TextView mAccountBalance;
 	LinearLayout mNewTransaction;
+	LinearLayout mHeader;
 	long id;
 	
     /** Called when the activity is first created. */
@@ -39,10 +43,11 @@ public class TransactionsActivity extends Activity {
         
         
         setContentView(R.layout.transactions_activity_layout);
-    
+        
+        mHeader = (LinearLayout) findViewById(R.id.header);
         transactions = new AccountData(this);
-        mAccountName = (TextView) findViewById(R.id.accountName);
-        mAccountBalance = (TextView) findViewById(R.id.accountBalance);
+        mAccountName = (TextView) findViewById(R.id.header_account);
+        mAccountBalance = (TextView) findViewById(R.id.header_balance);
         transactionIntent = getIntent();
         id = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
         accountInfo = transactions.getAccountInfo(id);
@@ -50,8 +55,7 @@ public class TransactionsActivity extends Activity {
         startManagingCursor(accountInfo);
         
         mNewTransaction = (LinearLayout) findViewById(R.id.footer);
-        
-        
+          
         mNewTransaction.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -72,39 +76,14 @@ public class TransactionsActivity extends Activity {
         String[] from = {AccountData.TRANSACTION_NAME, AccountData.TRANSACTION_AMOUNT, AccountData.TRANSACTION_DATE, AccountData.TRANSACTION_CATEGORY, AccountData.TRANSACTION_MEMO};
         
         Log.d(TAG, "Starting adapter");
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.transactions_activity_listview_row, cursor, from, to);
-        
+       // SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.transactions_activity_listview_row, cursor, from, to);
+       TransactionAdapter adapter = new TransactionAdapter(this, R.layout.transactions_activity_listview_row, cursor, from, to);
+
 
         Log.d(TAG, "Setting adapter");
         
         list.setAdapter(adapter);
         registerForContextMenu(list);
-//        list.setLongClickable(true);
-//        list.setOnItemLongClickListener(new OnItemLongClickListener(){
-//
-//			@Override
-//			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-//					int arg2, long arg3) {
-//				// TODO Auto-generated method stub
-//				return false;
-//			}
-//        	
-//        });
-//        list.setOnLongClickListener(new OnLongClickListener(){
-//
-//			@Override
-//			public boolean onLongClick(View arg0) {
-//				// TODO Auto-generated method stub
-//				long id;
-//				id = list.getItemIdAtPosition(list.getSelectedItemPosition());
-//				editTransactionIntent.putExtra(AccountData.TRANSACTION_ID, id);
-//				startActivity(editTransactionIntent);
-//				return true;
-//			}
-//        	
-//        });
-        
-        
         
     }
     
@@ -118,18 +97,8 @@ public class TransactionsActivity extends Activity {
     	
     	accountInfo.moveToFirst();
     	Log.d(TAG, "" + accountInfo.getColumnCount());
-    	
-    	String accountBalance = accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_BALANCE));
-    	mAccountBalance.setTextColor(Color.GREEN);
-    	
-    	if(Float.parseFloat(accountBalance) < 0){
-    		mAccountBalance.setTextColor(Color.RED);
-    	}
-    	
-        mAccountName.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_NAME)));
-        mAccountBalance.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_BALANCE)));
-        
-        
+    	updateBalance();
+    	    
     }
     
     
@@ -156,6 +125,28 @@ public class TransactionsActivity extends Activity {
     	
     	transactions.close();
     }
+    
+    /**
+     * update the balance of the account as displayed at the top of the screen.
+     */
+    public void updateBalance(){
+    	accountInfo.moveToFirst();
+    	
+    	String amountNoDecimal = accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_BALANCE));
+    	BigDecimal accountBalance = new BigDecimal(amountNoDecimal);
+    	accountBalance = accountBalance.movePointLeft(2);
+    	
+    	mAccountBalance.setTextColor(Color.WHITE);
+    	mHeader.setBackgroundColor(AccountData.GREEN);
+    	if(accountBalance.signum() < 0){
+    		mHeader.setBackgroundColor(AccountData.RED);
+    	}
+    	
+        mAccountName.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_NAME)));
+        mAccountBalance.setText(accountBalance.toPlainString());
+        
+    }
+    
     
     // Context Menu
     @Override
@@ -186,6 +177,8 @@ public class TransactionsActivity extends Activity {
     			accountInfo.requery();
     			cursor.deactivate();
     			cursor.requery();
+    			updateBalance();
+    			
     			return true;
     	}
     	return false;

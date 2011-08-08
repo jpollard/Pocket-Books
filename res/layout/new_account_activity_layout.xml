@@ -7,17 +7,17 @@
     <EditText android:id="@+id/new_account_name_edit_text" 
      	android:hint="Account Name"
      	android:layout_width="fill_parent" 
-     	android:layout_height="wrap_content">
+     	android:layout_height="wrap_content" android:layout_margin="5dp">
     </EditText>
     <EditText android:id="@+id/new_account_balance_edit_text" 
     	android:hint="Initial Balance" 
     	android:layout_width="fill_parent" 
     	android:layout_height="wrap_content" 
-    	android:inputType="number|numberSigned|numberDecimal">
+    	android:inputType="number|numberSigned|numberDecimal" android:layout_margin="5dp">
     </EditText>
     <Button android:id="@+id/new_account_done_button"
     	android:text="Done" 
     	android:layout_width="fill_parent" 
-    	android:layout_height="wrap_content">
+    	android:layout_height="wrap_content" android:layout_margin="5dp">
     </Button>
 </LinearLayout>

@@ -4,4 +4,5 @@
     <string name="app_name">Pocket Books</string>
     <string name="new_account_title">Create Account:</string>
     <string name="new_account">Create a New Account</string>
+    <string name="done_button">Done</string>
 </resources>

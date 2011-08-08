@@ -1,112 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent" android:layout_height="fill_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+<ScrollView android:layout_weight=".1" 
+	android:layout_height="wrap_content" 
+	android:layout_width="fill_parent">
+<TableLayout  
+	android:layout_width="fill_parent" 
+	android:layout_margin="1dp" 
+	android:layout_height="wrap_content">
   	
-  	<TableRow>
+  	<TableRow android:layout_width="fill_parent" android:baselineAligned="false" android:layout_weight="1" android:layout_height="fill_parent">
   		<TextView android:id="@+id/Payee_textView"  
-  			android:text="Payee" 
-  			android:layout_width="wrap_content" 
-  			android:layout_height="wrap_content">
+  			android:text="Payee:" 
+  			android:layout_width="fill_parent" 
+  			android:layout_height="wrap_content" 
+  			android:layout_margin="5dp" android:layout_gravity="center_vertical">
   		</TextView>
   	
     	<EditText android:id="@+id/Payee_editText"
     		android:layout_height="wrap_content"  
     		android:hint="Name of the transaction." 
-    		android:layout_width="wrap_content">
+    		android:layout_width="fill_parent" 
+    		android:layout_weight="2" 
+    		android:inputType="text|textCapWords|textAutoComplete" 
+    		android:scrollHorizontally="true" 
+    		android:singleLine="true" 
+    		android:layout_margin="5dp" android:layout_gravity="center_vertical">
     	</EditText>
 	</TableRow>
 	
 	<RadioGroup android:id="@+id/Deposit_Or_Withdrawl" 
-		android:layout_height="wrap_content" 
-		android:orientation="horizontal" 
-		android:layout_width="fill_parent">
+		android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="0dp" android:orientation="horizontal">
   	
   			<RadioButton android:id="@+id/withdrawl_RadioButton"
   				android:text="Withdrawl" 
-  				android:layout_width="wrap_content"  
   				android:layout_height="wrap_content" 
-  				android:checked="true">
+  				android:checked="true" android:layout_weight="1" android:layout_width="0dp">
   			</RadioButton>
   	
   			<RadioButton android:id="@+id/desposit_RadioButton"
   				android:text="Deposit" 
-  				android:layout_width="wrap_content"  
-  				android:layout_height="wrap_content">
+  				android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content">
   			</RadioButton>
   	</RadioGroup>
   	
   	<TableRow android:id="@+id/tableRow1"
-  		android:layout_height="wrap_content" 
-  		android:layout_width="wrap_content">
+  		android:layout_width="wrap_content" android:layout_weight="1" android:layout_height="0dp">
   	
   		<TextView android:id="@+id/amount_TextView"
   			android:text="Amount: "  
   			android:layout_width="wrap_content" 
-  			android:layout_height="wrap_content">
+  			android:layout_height="wrap_content" 
+  			android:layout_margin="5dp" 
+  			android:layout_gravity="center_vertical">
   		</TextView>
   	
   		<EditText android:id="@+id/amount_EditText"
   			android:hint="Transaction Amount"  
-  			android:layout_width="wrap_content" 
-  			android:layout_height="wrap_content" android:inputType="numberDecimal">
+  			android:layout_width="fill_parent" 
+  			android:layout_height="wrap_content" 
+  			android:inputType="numberDecimal" 
+  			android:scrollHorizontally="true" 
+    		android:singleLine="true"
+  			android:layout_weight="2" 
+  			android:layout_margin="5dp" 
+  			android:layout_gravity="center_vertical">
   		</EditText>
   	</TableRow>
   	
   	<TableRow android:id="@+id/tableRow2"
-  		android:layout_height="wrap_content" 
-  		android:layout_width="wrap_content">
+  		android:layout_width="wrap_content" android:layout_weight="1" android:layout_height="0dp">
   	
   		<TextView android:id="@+id/date_TextView"
   			android:text="Date:" 
   			android:layout_width="wrap_content" 
-  			android:layout_height="wrap_content">
+  			android:layout_height="wrap_content" 
+  			android:layout_margin="5dp" 
+  			android:layout_gravity="center_vertical">
   		</TextView>
   	
   		<EditText android:id="@+id/date_EditText"
   			android:editable="false"  
-  			android:layout_width="wrap_content" 
-  			android:layout_height="wrap_content" android:inputType="none">
+  			android:layout_width="fill_parent" 
+  			android:layout_height="wrap_content" 
+  			android:inputType="none" 
+  			android:layout_weight="2" 
+  			android:layout_margin="5dp" android:layout_gravity="center_vertical">
   		</EditText>
   	</TableRow>
-  	
+  
   	<TableRow android:id="@+id/tableRow3"
-  		android:layout_height="wrap_content" 
-  		android:layout_width="wrap_content" android:baselineAligned="false">
+  		android:layout_width="wrap_content" 
+  		android:baselineAligned="false" android:layout_weight="1" android:layout_height="0dp">
   	
   		<TextView android:id="@+id/category_TextView"
   			android:text="Category:"  
   			android:layout_width="wrap_content" 
-  			android:layout_height="wrap_content">
+  			android:layout_height="wrap_content" 
+  			android:layout_gravity="center_vertical" 
+  			android:layout_margin="5dp">
   		</TextView>
   	
   		<Spinner android:id="@+id/category_Spinner" 
-  			android:layout_width="wrap_content" 
-  			android:layout_height="wrap_content">
+  			android:layout_width="fill_parent" 
+  			android:layout_height="wrap_content" 
+  			android:layout_weight="2" 
+  			android:layout_margin="5dp">
   		</Spinner>
   	</TableRow>
   	
-  	<TableRow android:id="@+id/tableRow4"
-  		android:layout_height="wrap_content" 
-  		android:layout_width="wrap_content">
+  	<TableRow android:id="@+id/tableRow4" android:layout_width="wrap_content" android:layout_gravity="fill" android:layout_height="fill_parent" android:baselineAligned="false" android:layout_weight=".01">
   	
   		<TextView android:id="@+id/note_TextView"
   			android:text="Note:"  
   			android:layout_width="wrap_content" 
-  			android:layout_height="wrap_content">
+  			android:layout_height="wrap_content" 
+  			android:layout_margin="5dp" android:layout_gravity="center_vertical">
   		</TextView>
   	
   		<EditText android:id="@+id/note_EditText"
+  			android:inputType="text|textCapSentences|textAutoComplete" 
   			android:hint="Transaction Notes"  
-  			android:layout_width="wrap_content" 
-  			android:layout_height="wrap_content">
+  			android:layout_margin="5dp" 
+  			android:gravity="fill_vertical" 
+  			android:layout_width="fill_parent" 
+  			android:layout_gravity="top" android:maxLines="2" 
+  			android:capitalize="sentences" 
+  			android:imeOptions="actionDone|flagNoEnterAction" 
+  			android:isScrollContainer="true" 
+  			android:layout_height="wrap_content" 
+  			android:layout_weight="3">
   		</EditText>
   	</TableRow>
   	
-  	<Button android:id="@+id/new_transaction_activity_done_Button"
-  		android:layout_height="wrap_content" 
-  		android:text="Done" 
-  		android:layout_width="wrap_content" android:layout_gravity="bottom">
-  	</Button>
-  	
 </TableLayout>
+
+</ScrollView>
+<Button android:id="@+id/new_transaction_activity_done_Button"
+  			android:text="@string/done_button"
+  			android:layout_width="fill_parent"
+  			android:layout_margin="5dp" 
+  			android:layout_height="wrap_content" 
+  			android:layout_weight="1"
+  			android:layout_gravity="left" 
+  			android:layout_alignParentBottom="true"/>
+</RelativeLayout>
