@@ -1,5 +1,7 @@
 package com.pocketbooks;
 
+import com.admob.android.ads.AdView;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -30,7 +32,8 @@ public class AccountsActivity extends Activity{
 	LinearLayout mNewAccount;
 	LinearLayout header;
 	TextView headerId;
-		
+	AdView adView;	
+	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "Starting account");
@@ -45,8 +48,9 @@ public class AccountsActivity extends Activity{
         header.setBackgroundColor(Color.parseColor("#216C2A")); 
         headerId = (TextView) findViewById(R.id.header_account);
         headerId.setTextColor(Color.WHITE);
-        headerId.setText("Pocket Book :: Accounts");
+        headerId.setText("Pocket Books");
         list = (ListView) findViewById(R.id.accountNameListView);
+        adView = (AdView) findViewById(R.id.ad);
         
         final Intent newAccountIntent = new Intent(this, NewAccountActivity.class);
         final Intent transactionIntent = new Intent(this, TransactionsActivity.class);
@@ -110,6 +114,7 @@ public class AccountsActivity extends Activity{
 	public void onResume(){
 		super.onResume();
 		cursor.requery();
+		adView.requestFreshAd();
 	}
 	
 	@Override

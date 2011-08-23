@@ -38,7 +38,8 @@
     	android:layout_below="@+id/transaction_date" 
     	android:layout_height="wrap_content" 
     	android:layout_alignLeft="@+id/transaction_date" 
-    	android:textSize="15dp">
+    	
+    	android:textSize="0dp">
     </TextView>
     <TextView android:id="@+id/transaction_memo"
     	android:layout_height="wrap_content"

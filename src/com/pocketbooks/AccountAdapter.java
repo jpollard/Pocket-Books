@@ -1,13 +1,9 @@
 package com.pocketbooks;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +22,9 @@ public class AccountAdapter extends SimpleCursorAdapter{
 	private int accountNameIndex;
 	private int accountAmountIndex;
 
-	public AccountAdapter(Context context, int layout, Cursor c,
-			String[] from, int[] to) {
+	public AccountAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
 		super(context, layout, c, from, to);
-		// TODO Auto-generated constructor stub
+		
 		this.context = context;
 		this.layout = layout;
 		this.c = c;

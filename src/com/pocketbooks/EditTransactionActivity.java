@@ -17,8 +17,10 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class EditTransactionActivity extends Activity {
 	final static String TAG = EditTransactionActivity.class.getSimpleName();
@@ -35,6 +37,8 @@ public class EditTransactionActivity extends Activity {
 	Intent transactionIntent;
 	RadioButton editDeposit;
 	RadioButton editWithdrawl;
+	LinearLayout header;
+	TextView headerAccount;
 	long id;
 	int year;
 	int month;
@@ -48,11 +52,17 @@ public class EditTransactionActivity extends Activity {
 
 		setContentView(R.layout.new_transaction_activity_layout);
 		
+		header = (LinearLayout) findViewById(R.id.header);
+		header.setBackgroundColor(AccountData.GREEN);
+		
+		headerAccount = (TextView) findViewById(R.id.header_account);
+		headerAccount.setText("Edit Transaction");
+		
 		transaction = new AccountData(this);
 		editTransactionName = (EditText) findViewById(R.id.Payee_editText);
 		editTransactionAmount = (EditText) findViewById(R.id.amount_EditText);
 		editTransactionDate = (EditText) findViewById(R.id.date_EditText);
-		editTransactionCategory = (Spinner) findViewById(R.id.category_Spinner);
+		//editTransactionCategory = (Spinner) findViewById(R.id.category_Spinner);
 		editTransactionMemo = (EditText) findViewById(R.id.note_EditText);
 		editDeposit = (RadioButton) findViewById(R.id.desposit_RadioButton);
 		editWithdrawl = (RadioButton) findViewById(R.id.withdrawl_RadioButton);
@@ -106,6 +116,8 @@ public class EditTransactionActivity extends Activity {
 		
 		editDeposit.setChecked(true);
 		BigDecimal amount = new BigDecimal(editTransactionInfo.getString(editTransactionInfo.getColumnIndex(AccountData.TRANSACTION_AMOUNT)));
+		amount = amount.movePointLeft(2);
+		
 		if(amount.signum() < 0){
 			editWithdrawl.setChecked(true);
 			amount = amount.abs();

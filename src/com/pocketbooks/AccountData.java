@@ -95,11 +95,13 @@ public class AccountData {
 			db.insert(DBHelper.ACCOUNTS_TABLE, null, values);
 			Log.d(TAG, "createTable sql: " + name);
 			db.setTransactionSuccessful();
+			Log.d(TAG, "done");
 		}catch(SQLException e){
 			Log.d(TAG, "fail sql: " + e);
 		}finally{
 			db.endTransaction();
 			db.close();
+			Log.d(TAG, "closed");
 		}		
 	}
 	
@@ -124,7 +126,7 @@ public class AccountData {
 		Log.d(TAG, "Querying DB");
 		cursor = db.query(DBHelper.ACCOUNTS_TABLE, columnsToQuery, null, null, null, null, null);
 		
-		Log.d(TAG, "returning tables in a cursor. " + cursor.toString());
+		Log.d(TAG, "returning tables in a cursor. " + cursor.getCount());
 		return cursor;	
 	}
 	
@@ -204,7 +206,7 @@ public class AccountData {
 		Log.d(TAG, "Opened DB");
 		
 		Log.d(TAG, "Querying DB");
-		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columnsToQuery, TRANSACTION_ACCOUNT_ID + " like " + id, null, null, null, TRANSACTION_DATE + " ASC");
+		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columnsToQuery, TRANSACTION_ACCOUNT_ID + " like " + id, null, null, null, TRANSACTION_DATE + " DESC");
 		Log.d(TAG, "returning tables in a cursor");
 		Log.d(TAG, cursor.getColumnName(cursor.getColumnIndex(TRANSACTION_ID)));
 		

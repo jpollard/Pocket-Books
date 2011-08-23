@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	xmlns:myapp="http://schemas.android.com/apk/res/com.pocketbooks"
+	
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:background="#F5FFDA">
 	
 	<include android:id="@+id/header" layout="@layout/header" android:layout_alignParentTop="true" />
 	
@@ -20,13 +23,38 @@
 		<TextView android:id="@+id/addTransactionText"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content" 
-			android:text="Add New Transaction" android:textSize="25dp" android:layout_gravity="center_vertical" android:layout_margin="5dp"></TextView>
+			android:text="Add New Transaction" 
+			android:textColor="#FFF"
+			android:textSize="25dp" 
+			android:layout_gravity="center_vertical"
+			android:layout_margin="5dp">
+		</TextView>
+		
 	</LinearLayout>
+	<View 
+	android:id="@+id/sep"
+	android:layout_above="@id/footer"
+	android:layout_height="2dip"
+    android:layout_width="fill_parent"
+    android:background="#000"
+    />
+	
+	<com.admob.android.ads.AdView
+	android:id="@+id/ad"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_above="@id/sep"
+	myapp:backgroundColor="#216C2A"
+	
+	myapp:primaryTextColor="#FFFFFF"
+	myapp:secondaryTextColor="#CCCCCC"
+	/>
+	
 	<ListView android:id="@+id/transactionListView" 
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content" 
 		android:layout_below="@id/header"
-		android:layout_above="@id/footer">
+		android:layout_above="@id/ad">
 	</ListView>
 
 </RelativeLayout>

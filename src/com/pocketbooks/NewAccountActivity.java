@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class NewAccountActivity extends Activity {
 	private static String TAG = "newAccount";
@@ -16,6 +17,7 @@ public class NewAccountActivity extends Activity {
 	EditText accountBalance;
 	Button done;
 	AccountData accounts;  
+	TextView headerAccount;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -25,6 +27,10 @@ public class NewAccountActivity extends Activity {
 		
 		// Setup GUI
 		setContentView(R.layout.new_account_activity_layout);
+		
+		headerAccount = (TextView) findViewById(R.id.header_account);
+		headerAccount.setText("New Account");
+		
 		accountName = (EditText) findViewById(R.id.new_account_name_edit_text);
 		accountBalance = (EditText) findViewById(R.id.new_account_balance_edit_text);
 		done = (Button) findViewById(R.id.new_account_done_button);

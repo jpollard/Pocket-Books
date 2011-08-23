@@ -2,7 +2,6 @@ package com.pocketbooks;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Date;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -19,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class NewTransactionActivity extends Activity {
 	private static final int DATE_DIALOG = 0;
@@ -38,6 +38,7 @@ public class NewTransactionActivity extends Activity {
 	int day;
 	long id;
 	Intent transactionIntent;
+	TextView headerAccount;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -46,6 +47,8 @@ public class NewTransactionActivity extends Activity {
 		
 		setContentView(R.layout.new_transaction_activity_layout);
 		
+		headerAccount = (TextView) findViewById(R.id.header_account);
+		headerAccount.setText("New Transaction");
 		transactionIntent = getIntent();
 		id = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
 		
@@ -56,7 +59,7 @@ public class NewTransactionActivity extends Activity {
 		amountEditText = (EditText) findViewById(R.id.amount_EditText);
 		dateEditText = (EditText) findViewById(R.id.date_EditText);
 		noteEditText = (EditText) findViewById(R.id.note_EditText);
-		categorySpinner = (Spinner) findViewById(R.id.category_Spinner);
+		//categorySpinner = (Spinner) findViewById(R.id.category_Spinner);
 		doneButton = (Button) findViewById(R.id.new_transaction_activity_done_Button);
 		
 		Calendar c = Calendar.getInstance();
