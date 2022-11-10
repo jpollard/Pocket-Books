@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:myapp="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
+    >
+    <include android:id="@+id/header" layout="@layout/header" />
+    <LinearLayout android:id="@+id/footer"
+        android:background="#216C2A"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:hapticFeedbackEnabled="true">
+
+        <ImageView android:id="@+id/addTransactionIcon"
+            android:src="@android:drawable/ic_menu_add"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="5dp">
+        </ImageView>
+
+        <TextView android:id="@+id/addAccountText"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Add New Account"
+            android:textSize="25dp"
+            android:textColor="#fff"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp">
+        </TextView>
+
+    </LinearLayout>
+    <View
+        android:id="@+id/sep"
+        android:layout_above="@id/footer"
+        android:layout_height="2dip"
+        android:layout_width="fill_parent"
+        android:background="#000"
+        />
+
+    <ListView
+        android:id="@+id/accountNameListView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/header"
+        android:background="#F6FFDA"></ListView>
+
+</RelativeLayout>
