@@ -10,7 +10,6 @@ import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -30,6 +29,8 @@ public class AccountsActivity extends Activity{
 	LinearLayout mNewAccount;
 	LinearLayout header;
 	TextView headerId;
+	int headerBgColor;
+
 	//AdView adView;
 	
 	public void onCreate(Bundle savedInstanceState){
@@ -41,9 +42,9 @@ public class AccountsActivity extends Activity{
         setContentView(R.layout.accounts_activity_layout);
         
         //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.pocketbooks_header);
-        
+        headerBgColor = getResources().getColor(R.color.PB_GREEN);
         header = (LinearLayout) findViewById(R.id.header);
-        header.setBackgroundColor(Color.parseColor("#216C2A")); 
+        header.setBackgroundColor(headerBgColor);
         headerId = (TextView) findViewById(R.id.header_account);
         headerId.setTextColor(Color.WHITE);
         headerId.setText("Pocket Books");
