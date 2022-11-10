@@ -30,6 +30,7 @@ public class AccountsActivity extends Activity{
 	LinearLayout header;
 	TextView headerId;
 	int headerBgColor;
+	int headerTextColor;
 
 	//AdView adView;
 	
@@ -43,10 +44,11 @@ public class AccountsActivity extends Activity{
         
         //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.pocketbooks_header);
         headerBgColor = getResources().getColor(R.color.PB_GREEN);
+		headerTextColor = getResources().getColor(R.color.WHITE);
         header = (LinearLayout) findViewById(R.id.header);
         header.setBackgroundColor(headerBgColor);
         headerId = (TextView) findViewById(R.id.header_account);
-        headerId.setTextColor(Color.WHITE);
+        headerId.setTextColor(headerTextColor);
         headerId.setText("Pocket Books");
         list = (ListView) findViewById(R.id.accountNameListView);
         //adView = (AdView) findViewById(R.id.ad);
