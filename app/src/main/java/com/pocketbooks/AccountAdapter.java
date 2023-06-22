@@ -1,7 +1,9 @@
 package com.pocketbooks;
 
+
 import java.math.BigDecimal;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -47,6 +49,7 @@ public class AccountAdapter extends SimpleCursorAdapter{
 
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void bindView(View view, Context context, Cursor cursor){
         super.bindView(view, context, cursor);

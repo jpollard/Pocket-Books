@@ -19,14 +19,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class AccountsActivity extends Activity{
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+
+public class AccountsActivity extends AppCompatActivity {
+	//TODO Create actionbar for this activity.
+	ActionBar actionBar;
+
+	// Look into jetpack compose.
+
 	private static final String TAG = "ListActivity: ";
 	AccountData accounts;
 	CursorAdapter cursorAdapter;
 	Cursor cursor;
 	ListView list;
-	LinearLayout mNewAccount;
+	FloatingActionButton mNewAccount;
 	LinearLayout header;
 	TextView headerId;
 	int headerBgColor;
@@ -37,19 +47,26 @@ public class AccountsActivity extends Activity{
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "Starting account");
-		
+
+		// Set up action bar
+		actionBar = getSupportActionBar();
+		actionBar.setTitle(R.string.app_name);
+		actionBar.setIcon(R.drawable.ic_action_name);
+		actionBar.setDisplayUseLogoEnabled(true);
+		actionBar.setDisplayShowHomeEnabled(true);
+
 		// Setup UI
 		//requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.accounts_activity_layout);
         
-        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.pocketbooks_header);
-        headerBgColor = getResources().getColor(R.color.PB_GREEN);
-		headerTextColor = getResources().getColor(R.color.WHITE);
-        header = (LinearLayout) findViewById(R.id.header);
-        header.setBackgroundColor(headerBgColor);
-        headerId = (TextView) findViewById(R.id.header_account);
-        headerId.setTextColor(headerTextColor);
-        headerId.setText("Pocket Books");
+//        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.pocketbooks_header);
+//        headerBgColor = getResources().getColor(R.color.PB_GREEN);
+//		headerTextColor = getResources().getColor(R.color.WHITE);
+//        header = (LinearLayout) findViewById(R.id.header);
+//        header.setBackgroundColor(headerBgColor);
+//        headerId = (TextView) findViewById(R.id.header_account);
+//        headerId.setTextColor(headerTextColor);
+//        headerId.setText("Pocket Books");
         list = (ListView) findViewById(R.id.accountNameListView);
         //adView = (AdView) findViewById(R.id.ad);
         
@@ -67,12 +84,11 @@ public class AccountsActivity extends Activity{
 //			}	
 //        });
        
-        mNewAccount = (LinearLayout) findViewById(R.id.footer);  
+        mNewAccount = (FloatingActionButton) findViewById(R.id.addAccountFAB);
         mNewAccount.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				startActivity(newAccountIntent);
 			}
         	

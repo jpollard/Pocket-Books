@@ -52,8 +52,12 @@ public class TransactionsActivity extends Activity {
         mAccountBalance = (TextView) findViewById(R.id.header_balance);
         transactionIntent = getIntent();
         id = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
-        accountInfo = transactions.getAccountInfo(id);
-        accountInfo.moveToFirst();
+		try {
+			accountInfo = transactions.getAccountInfo(id);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		accountInfo.moveToFirst();
         startManagingCursor(accountInfo);
 
         //AdManager.setTestDevices( new String[] { "61288A13F61EE945752EE32D7DB60B3D" } );
@@ -146,9 +150,9 @@ public class TransactionsActivity extends Activity {
     	accountBalance = accountBalance.movePointLeft(2);
     	
     	mAccountBalance.setTextColor(Color.WHITE);
-    	mHeader.setBackgroundColor(AccountData.GREEN);
+    	mHeader.setBackgroundColor(getResources().getColor(AccountData.GREEN));
     	if(accountBalance.signum() < 0){
-    		mHeader.setBackgroundColor(AccountData.RED);
+    		mHeader.setBackgroundColor(getResources().getColor(AccountData.RED));
     	}
     	
         mAccountName.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_NAME)));
@@ -181,8 +185,12 @@ public class TransactionsActivity extends Activity {
     		case 1:
     			
     			//TODO set Header method
-    			transactions.deleteTransaction(info.id);
-    			accountInfo.deactivate();
+				try {
+					transactions.deleteTransaction(info.id);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+				accountInfo.deactivate();
     			accountInfo.requery();
     			cursor.deactivate();
     			cursor.requery();
