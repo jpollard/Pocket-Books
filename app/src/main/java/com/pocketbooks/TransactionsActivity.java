@@ -2,7 +2,6 @@ package com.pocketbooks;
 
 import java.math.BigDecimal;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -18,10 +17,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 //import com.admob.android.ads.AdManager;
 //import com.admob.android.ads.AdView;
 
-public class TransactionsActivity extends Activity {
+public class TransactionsActivity extends AppCompatActivity {
 	private static String TAG = "PocketBooks::Transactions Activity";
 	
 //	AdView adView;
@@ -33,8 +37,8 @@ public class TransactionsActivity extends Activity {
 	Intent editTransactionIntent;
 	TextView mAccountName;
 	TextView mAccountBalance;
-	LinearLayout mNewTransaction;
-	LinearLayout mHeader;
+	FloatingActionButton newTransactionFAB;
+	ActionBar actionBar;
 	long id;
 	
     /** Called when the activity is first created. */
@@ -45,11 +49,14 @@ public class TransactionsActivity extends Activity {
         final Intent newTransactionIntent = new Intent(this, NewTransactionActivity.class);
         
         setContentView(R.layout.transactions_activity_layout);
-        
-        mHeader = (LinearLayout) findViewById(R.id.header);
+
+		actionBar = getSupportActionBar();
+		actionBar.setTitle(R.string.app_name);
+		actionBar.setIcon(R.drawable.ic_action_name);
+		actionBar.setDisplayUseLogoEnabled(true);
+		actionBar.setDisplayShowHomeEnabled(true);
+
         transactions = new AccountData(this);
-        mAccountName = (TextView) findViewById(R.id.header_account);
-        mAccountBalance = (TextView) findViewById(R.id.header_balance);
         transactionIntent = getIntent();
         id = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
 		try {
@@ -63,9 +70,9 @@ public class TransactionsActivity extends Activity {
         //AdManager.setTestDevices( new String[] { "61288A13F61EE945752EE32D7DB60B3D" } );
   //      adView = (AdView) findViewById(R.id.ad);
 
-        mNewTransaction = (LinearLayout) findViewById(R.id.footer);
+        newTransactionFAB = (FloatingActionButton) findViewById(R.id.newTransactionFAB);
           
-        mNewTransaction.setOnClickListener(new OnClickListener(){
+        newTransactionFAB.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
@@ -93,7 +100,7 @@ public class TransactionsActivity extends Activity {
         
         list.setAdapter(adapter);
         registerForContextMenu(list);
-        
+        mAccountBalance = (TextView) findViewById(R.id.balanceTextView);
     }
     
     @Override
@@ -149,13 +156,12 @@ public class TransactionsActivity extends Activity {
     	BigDecimal accountBalance = new BigDecimal(amountNoDecimal);
     	accountBalance = accountBalance.movePointLeft(2);
     	
-    	mAccountBalance.setTextColor(Color.WHITE);
-    	mHeader.setBackgroundColor(getResources().getColor(AccountData.GREEN));
+    	mAccountBalance.setTextColor(Color.GREEN);
     	if(accountBalance.signum() < 0){
-    		mHeader.setBackgroundColor(getResources().getColor(AccountData.RED));
+    		mAccountBalance.setTextColor(Color.RED);
     	}
     	
-        mAccountName.setText(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_NAME)));
+        actionBar.setTitle(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_NAME)));
         mAccountBalance.setText(accountBalance.toPlainString());
         
     }

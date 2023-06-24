@@ -1,48 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:myapp="http://schemas.android.com/apk/res-auto"
-	
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:background="#F5FFDA">
-	
-	<include android:id="@+id/header" layout="@layout/header" android:layout_alignParentTop="true" />
-	
-	<LinearLayout android:id="@+id/footer"
-		android:layout_alignParentBottom="true" 
-		android:layout_height="wrap_content"
-		android:layout_width="fill_parent"
-		android:background="#216C2A" 
-		android:clickable="true" android:focusable="true" android:hapticFeedbackEnabled="true">
-		
-		<ImageView android:id="@+id/addTransactionIcon"
-			android:src="@android:drawable/ic_menu_add" 
-			android:layout_height="wrap_content" 
-			android:layout_width="wrap_content" android:layout_margin="5dp">
-		</ImageView>
-		
-		<TextView android:id="@+id/addTransactionText"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content" 
-			android:text="Add New Transaction" 
-			android:textColor="#FFF"
-			android:textSize="25dp" 
-			android:layout_gravity="center_vertical"
-			android:layout_margin="5dp">
-		</TextView>
-		
-	</LinearLayout>
-	<View 
-	android:id="@+id/sep"
-	android:layout_above="@id/footer"
-	android:layout_height="2dip"
-    android:layout_width="fill_parent"
-    android:background="#000"
-    />
-	
-	<ListView android:id="@+id/transactionListView" 
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" 
-		android:layout_below="@id/header">
-	</ListView>
 
-</RelativeLayout>
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/relativeLayout2"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<TextView
+		android:id="@+id/balanceLabelTextView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:text="@string/balance"
+		android:textSize="32sp"
+		myapp:layout_constraintEnd_toStartOf="@+id/balanceTextView"
+		myapp:layout_constraintStart_toStartOf="parent"
+		myapp:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/balanceTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="32sp"
+		android:textStyle="bold"
+		myapp:layout_constraintEnd_toEndOf="parent"
+		myapp:layout_constraintTop_toTopOf="parent" />
+
+	<ListView
+		android:id="@+id/transactionListView"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="16dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="16dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginBottom="16dp"
+		myapp:layout_constraintBottom_toBottomOf="parent"
+		myapp:layout_constraintEnd_toEndOf="parent"
+		myapp:layout_constraintStart_toStartOf="parent"
+		myapp:layout_constraintTop_toBottomOf="@id/balanceLabelTextView" />
+
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/newTransactionFAB"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:layout_marginRight="8dp"
+		android:layout_marginBottom="8dp"
+		android:clickable="true"
+		myapp:fabCustomSize="48dp"
+		myapp:layout_constraintBottom_toBottomOf="parent"
+		myapp:layout_constraintEnd_toEndOf="parent"
+		myapp:srcCompat="@android:drawable/ic_menu_add"
+		android:contentDescription="@string/add_new_transaction"
+		android:focusable="true" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
