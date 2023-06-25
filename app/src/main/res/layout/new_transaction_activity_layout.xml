@@ -15,23 +15,26 @@
 		android:layout_height="wrap_content"
 		android:layout_margin="8dp"
 		android:text="@string/payee"
-		android:textColor="#000"
-		android:textSize="32sp"
+		android:textColor="@color/black"
+		android:textSize="24sp"
+		app:layout_constraintEnd_toEndOf="@+id/amount_TextView"
+		app:layout_constraintHorizontal_bias="0.49"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<EditText
 		android:id="@+id/Payee_editText"
 		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_margin="8dp"
+		android:layout_height="45dp"
+		android:layout_margin="0dp"
 		android:hint="@string/name_of_the_transaction"
 		android:inputType="text|textCapWords|textAutoComplete"
 		android:scrollHorizontally="true"
 		android:singleLine="true"
+		app:layout_constraintBottom_toBottomOf="@+id/Payee_textView"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toEndOf="@id/Payee_textView"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintHorizontal_bias="0.33"
+		app:layout_constraintStart_toStartOf="@+id/amount_EditText" />
 
 
 	<TextView
@@ -39,9 +42,13 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_margin="8dp"
+		android:layout_marginStart="16dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="140dp"
 		android:text="Amount: "
 		android:textColor="#000"
-		android:textSize="32sp"
+		android:textSize="24sp"
+		app:layout_constraintEnd_toEndOf="@+id/date_TextView"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/Payee_textView" />
 
@@ -49,37 +56,16 @@
 		android:id="@+id/amount_EditText"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_margin="8dp"
+		android:layout_margin="0dp"
 		android:hint="Transaction Amount"
 		android:inputType="numberDecimal"
 		android:scrollHorizontally="true"
 		android:singleLine="true"
+		app:layout_constraintBottom_toBottomOf="@+id/amount_TextView"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toEndOf="@id/amount_TextView"
-		app:layout_constraintTop_toBottomOf="@id/Payee_editText" />
+		app:layout_constraintStart_toStartOf="@+id/date_EditText" />
 
 
-	<TextView
-		android:id="@+id/date_TextView"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_margin="8dp"
-		android:text="Date:"
-		android:textColor="#000"
-		android:textSize="32sp"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/amount_TextView" />
-
-	<EditText
-		android:id="@+id/date_EditText"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_margin="8dp"
-		android:editable="false"
-		android:inputType="none"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toEndOf="@+id/date_TextView"
-		app:layout_constraintTop_toBottomOf="@id/amount_EditText" />
 	<!--
   
   	<TableRow android:id="@+id/tableRow3"
@@ -105,21 +91,47 @@
   	-->
 
 	<TextView
+		android:id="@+id/date_TextView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:text="Date:"
+		android:textColor="#000"
+		android:textSize="24sp"
+		app:layout_constraintEnd_toEndOf="@+id/note_TextView"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/amount_TextView" />
+
+	<EditText
+		android:id="@+id/date_EditText"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="0dp"
+		android:editable="false"
+		android:inputType="none"
+		app:layout_constraintBottom_toBottomOf="@+id/date_TextView"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="@+id/note_EditText" />
+
+	<TextView
 		android:id="@+id/note_TextView"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_margin="8dp"
 		android:text="Note:"
 		android:textColor="#000"
-		android:textSize="32sp"
+		android:textSize="24sp"
+		app:layout_constraintEnd_toStartOf="@+id/note_EditText"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/date_TextView" />
 
 	<EditText
 		android:id="@+id/note_EditText"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_margin="8dp"
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_margin="0dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginRight="8dp"
 		android:capitalize="sentences"
 		android:gravity="fill_vertical"
 		android:hint="Transaction Notes"
@@ -127,8 +139,9 @@
 		android:inputType="text|textCapSentences|textAutoComplete"
 		android:isScrollContainer="true"
 		android:maxLines="2"
+		app:layout_constraintBottom_toBottomOf="@+id/note_TextView"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toEndOf="@+id/note_TextView"
-		app:layout_constraintTop_toBottomOf="@id/date_EditText" />
+		app:layout_constraintHorizontal_bias="0.49"
+		app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
