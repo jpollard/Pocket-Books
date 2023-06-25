@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/relativeLayout3"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+	<!--android:background="#F6FFDA"-->
+
+
+	<TextView
+		android:id="@+id/Payee_textView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:text="@string/payee"
+		android:textColor="#000"
+		android:textSize="32sp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/Payee_editText"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:hint="@string/name_of_the_transaction"
+		android:inputType="text|textCapWords|textAutoComplete"
+		android:scrollHorizontally="true"
+		android:singleLine="true"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@id/Payee_textView"
+		app:layout_constraintTop_toTopOf="parent" />
+
+
+	<TextView
+		android:id="@+id/amount_TextView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:text="Amount: "
+		android:textColor="#000"
+		android:textSize="32sp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/Payee_textView" />
+
+	<EditText
+		android:id="@+id/amount_EditText"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:hint="Transaction Amount"
+		android:inputType="numberDecimal"
+		android:scrollHorizontally="true"
+		android:singleLine="true"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@id/amount_TextView"
+		app:layout_constraintTop_toBottomOf="@id/Payee_editText" />
+
+
+	<TextView
+		android:id="@+id/date_TextView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:text="Date:"
+		android:textColor="#000"
+		android:textSize="32sp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/amount_TextView" />
+
+	<EditText
+		android:id="@+id/date_EditText"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:editable="false"
+		android:inputType="none"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/date_TextView"
+		app:layout_constraintTop_toBottomOf="@id/amount_EditText" />
+	<!--
+  
+  	<TableRow android:id="@+id/tableRow3"
+  		android:layout_width="wrap_content" 
+  		android:baselineAligned="false" android:layout_weight="1" android:layout_height="0dp">
+  	
+  		<TextView android:id="@+id/category_TextView"
+  			android:text="Category:"  
+  			android:layout_width="wrap_content" 
+  			android:layout_height="wrap_content" 
+  			android:layout_gravity="center_vertical" 
+  			android:layout_margin="5dp">
+  		</TextView>
+  	
+  		<Spinner android:id="@+id/category_Spinner" 
+  			android:layout_width="fill_parent" 
+  			android:layout_height="wrap_content" 
+  			android:layout_weight="2" 
+  			android:layout_margin="5dp">
+  		</Spinner>
+  	</TableRow>
+  	
+  	-->
+
+	<TextView
+		android:id="@+id/note_TextView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:text="Note:"
+		android:textColor="#000"
+		android:textSize="32sp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/date_TextView" />
+
+	<EditText
+		android:id="@+id/note_EditText"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:capitalize="sentences"
+		android:gravity="fill_vertical"
+		android:hint="Transaction Notes"
+		android:imeOptions="actionDone|flagNoEnterAction"
+		android:inputType="text|textCapSentences|textAutoComplete"
+		android:isScrollContainer="true"
+		android:maxLines="2"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/note_TextView"
+		app:layout_constraintTop_toBottomOf="@id/date_EditText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
