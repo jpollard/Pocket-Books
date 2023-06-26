@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/confirmNewAccount"
+        android:id="@+id/confirmNewTransaction"
         android:enabled="true"
         android:icon="@android:drawable/ic_menu_save"
         android:title="@string/confirm"

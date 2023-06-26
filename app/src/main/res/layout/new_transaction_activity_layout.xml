@@ -10,7 +10,7 @@
 
 
 	<androidx.appcompat.widget.SwitchCompat
-		android:id="@+id/switch1"
+		android:id="@+id/transactionType_Switch"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="16dp"
@@ -36,8 +36,8 @@
 		android:textColor="@color/black"
 		android:textSize="24sp"
 		app:layout_constraintBottom_toBottomOf="@+id/Payee_editText"
-		app:layout_constraintStart_toStartOf="@+id/switch1"
-		app:layout_constraintTop_toBottomOf="@+id/switch1" />
+		app:layout_constraintStart_toStartOf="@+id/transactionType_Switch"
+		app:layout_constraintTop_toBottomOf="@+id/transactionType_Switch" />
 
 	<EditText
 		android:id="@+id/Payee_editText"
@@ -48,7 +48,7 @@
 		android:scrollHorizontally="true"
 		android:singleLine="true"
 		app:layout_constraintEnd_toEndOf="@+id/date_EditText"
-		app:layout_constraintStart_toEndOf="@+id/switch1"
+		app:layout_constraintStart_toEndOf="@+id/transactionType_Switch"
 		app:layout_constraintTop_toBottomOf="@+id/date_EditText" />
 
 	<TextView
