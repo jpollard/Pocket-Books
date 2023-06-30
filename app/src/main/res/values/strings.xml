@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, Transaction!</string>
+    <string name="app_name">Pocket Books</string>
+    <string name="new_account_title">Create Account:</string>
+    <string name="new_account">Create a New Account</string>
+    <string name="done_button">Done</string>
+    <string name="account_name">Account Name</string>
+    <string name="hint_initial_balance">Initial Balance</string>
+    <string name="confirm">Confirm</string>
+    <string name="balance">Balance:</string>
+    <string name="add_new_transaction">Add new transaction.</string>
+    <string name="payee">Payee:</string>
+    <string name="name_of_the_transaction">Name of the transaction.</string>
+    <string name="deposit">Deposit</string>
+    <string name="expense">Expense</string>
+    <string name="transaction_amount">Transaction Amount</string>
+    <string name="note">Note:</string>
+    <string name="transaction_notes">Transaction Notes</string>
+    <string name="sql_account_name">account_name</string>
+</resources>
