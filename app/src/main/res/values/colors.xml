@@ -17,5 +17,11 @@
     <color name="FRENCH_GRAY">A6A6A8</color>
     <color name="RAISIN_BLACK">272635</color>
     <color name="NON_PHOTO_BLUE">B1E5F2</color>
+    <color name="green">#1B5E20</color>
+    <color name="green_dark">#003300</color>
+    <color name="green_light">#A5D6A7</color>
+    <color name="blue">#0288D1</color>
+    <color name="blue_dark">#005B9F</color>
+    <color name="blue_light">#81D4FA</color>
 
 </resources>
