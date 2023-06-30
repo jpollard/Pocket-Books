@@ -1,18 +1,17 @@
 package com.pocketbooks;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
-
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 
 public class TransactionAdapter extends SimpleCursorAdapter{
 	private static String TAG = "TransactionAdapter";

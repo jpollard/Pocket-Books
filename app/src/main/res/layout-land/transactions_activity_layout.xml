@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:myapp="http://schemas.android.com/apk/res/com.pocketbooks"
-	android:layout_width="fill_parent" 
+	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:background="#F5FFDA">
 	
-	<include android:id="@+id/header" layout="@layout/header" android:layout_alignParentTop="true" />
-	
+
 	<LinearLayout android:id="@+id/footer"
 		android:layout_alignParentBottom="true"
 		android:background="#216C2A" 
@@ -36,7 +34,6 @@
 	<ListView android:id="@+id/transactionListView" 
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content" 
-		android:layout_below="@id/header"
 		android:layout_above="@id/footer">
 	</ListView>
 
