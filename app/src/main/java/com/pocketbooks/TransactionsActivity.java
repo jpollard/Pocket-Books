@@ -1,26 +1,25 @@
 package com.pocketbooks;
 
-import java.math.BigDecimal;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.math.BigDecimal;
 
 //import com.admob.android.ads.AdManager;
 //import com.admob.android.ads.AdView;
@@ -59,6 +58,7 @@ public class TransactionsActivity extends AppCompatActivity {
         transactions = new AccountData(this);
         transactionIntent = getIntent();
         id = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
+		Log.d(TAG, " account _id is " + id);
 		try {
 			accountInfo = transactions.getAccountInfo(id);
 		} catch (Exception e) {
@@ -76,7 +76,7 @@ public class TransactionsActivity extends AppCompatActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				newTransactionIntent.putExtra("trans_id", 0);
 				startActivity(newTransactionIntent.putExtra(AccountData.ACCOUNT_ID, id));
 			}
         	
@@ -105,7 +105,6 @@ public class TransactionsActivity extends AppCompatActivity {
     
     @Override
     public void onResume(){
-    	//TODO SET Header method 
     	super.onResume();
     	Log.d(TAG, "transactionActivity: onResume");
     	accountInfo.requery();
@@ -183,14 +182,12 @@ public class TransactionsActivity extends AppCompatActivity {
     	
     	switch(item.getItemId()){
     		case 0:
-    			editTransactionIntent = new Intent(this, EditTransactionActivity.class);
+    			editTransactionIntent = new Intent(this, NewTransactionActivity.class);
     			Log.d(TAG, "id of editTran " + info.id);
-    			editTransactionIntent.putExtra(AccountData.TRANSACTION_ID, info.id);
+    			editTransactionIntent.putExtra("trans_id", info.id);
     			startActivity(editTransactionIntent);
     			return true;
     		case 1:
-    			
-    			//TODO set Header method
 				try {
 					transactions.deleteTransaction(info.id);
 				} catch (Exception e) {

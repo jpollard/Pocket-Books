@@ -1,24 +1,21 @@
 package com.pocketbooks;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,10 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class AccountsActivity extends AppCompatActivity {
-	//TODO Create actionbar for this activity.
 	ActionBar actionBar;
-
-	// Look into jetpack compose.
 
 	private static final String TAG = "ListActivity: ";
 	AccountData accounts;
@@ -37,13 +31,7 @@ public class AccountsActivity extends AppCompatActivity {
 	Cursor cursor;
 	ListView list;
 	FloatingActionButton mNewAccount;
-	LinearLayout header;
-	TextView headerId;
-	int headerBgColor;
-	int headerTextColor;
 
-	//AdView adView;
-	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "Starting account");

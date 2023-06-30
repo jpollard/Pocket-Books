@@ -16,7 +16,6 @@
         <activity
             android:name="NewTransactionActivity"
             android:windowSoftInputMode="stateVisible|adjustPan" />
-        <activity android:name="EditTransactionActivity" />
         
         <!-- The application's publisher ID assigned by AdMob -->
 

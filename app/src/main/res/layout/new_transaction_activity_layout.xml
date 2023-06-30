@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/relativeLayout3"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativeLayout3"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 	<!--android:background="#F6FFDA"-->
 
 
@@ -28,17 +27,6 @@
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent" />
 
-	<TextView
-		android:id="@+id/Payee_textView"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="@string/payee"
-		android:textColor="@color/black"
-		android:textSize="24sp"
-		app:layout_constraintBottom_toBottomOf="@+id/Payee_editText"
-		app:layout_constraintStart_toStartOf="@+id/transactionType_Switch"
-		app:layout_constraintTop_toBottomOf="@+id/transactionType_Switch" />
-
 	<EditText
 		android:id="@+id/Payee_editText"
 		android:layout_width="0dp"
@@ -48,18 +36,8 @@
 		android:scrollHorizontally="true"
 		android:singleLine="true"
 		app:layout_constraintEnd_toEndOf="@+id/date_EditText"
-		app:layout_constraintStart_toEndOf="@+id/transactionType_Switch"
+		app:layout_constraintStart_toEndOf="@+id/amount_TextView"
 		app:layout_constraintTop_toBottomOf="@+id/date_EditText" />
-
-	<TextView
-		android:id="@+id/amount_TextView"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="Amount: "
-		android:textColor="#000"
-		android:textSize="24sp"
-		app:layout_constraintBottom_toBottomOf="@+id/amount_EditText"
-		app:layout_constraintStart_toStartOf="@+id/Payee_textView" />
 
 	<EditText
 		android:id="@+id/amount_EditText"
@@ -74,16 +52,6 @@
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="@+id/Payee_editText"
 		app:layout_constraintTop_toBottomOf="@+id/Payee_editText" />
-
-	<TextView
-		android:id="@+id/note_TextView"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:text="@string/note"
-		android:textColor="#000"
-		android:textSize="24sp"
-		app:layout_constraintBottom_toBottomOf="@+id/note_EditText"
-		app:layout_constraintStart_toStartOf="@+id/amount_TextView" />
 
 	<EditText
 		android:id="@+id/note_EditText"
@@ -115,5 +83,48 @@
 		app:layout_constraintHorizontal_bias="1.0"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="411dp"
+		android:layout_marginLeft="411dp"
+		android:layout_marginEnd="822dp"
+		android:layout_marginRight="822dp"
+		android:orientation="vertical"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent" />
+
+	<TextView
+		android:id="@+id/amount_TextView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:text="Amount: "
+		android:textColor="#000"
+		android:textSize="24sp"
+		app:layout_constraintBottom_toBottomOf="@+id/amount_EditText"
+		app:layout_constraintStart_toStartOf="@+id/Payee_textView" />
+
+	<TextView
+		android:id="@+id/note_TextView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:text="@string/note"
+		android:textColor="#000"
+		android:textSize="24sp"
+		app:layout_constraintBottom_toBottomOf="@+id/note_EditText"
+		app:layout_constraintStart_toStartOf="@+id/amount_TextView" />
+
+	<TextView
+		android:id="@+id/Payee_textView"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:text="@string/payee"
+		android:textColor="@color/black"
+		android:textSize="24sp"
+		app:layout_constraintBottom_toBottomOf="@+id/Payee_editText"
+		app:layout_constraintStart_toStartOf="@+id/transactionType_Switch"
+		app:layout_constraintTop_toBottomOf="@+id/transactionType_Switch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

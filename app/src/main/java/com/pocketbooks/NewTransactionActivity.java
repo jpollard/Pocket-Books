@@ -1,12 +1,10 @@
 package com.pocketbooks;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,18 +12,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+
+import java.math.BigDecimal;
+import java.util.Calendar;
 
 public class NewTransactionActivity extends AppCompatActivity {
 	private static final int DATE_DIALOG = 0;
@@ -39,36 +37,38 @@ public class NewTransactionActivity extends AppCompatActivity {
 	Spinner	categorySpinner;
 	SwitchCompat transactionTypeSwitch;
 	AccountData accounts;
+	Cursor editTransactionInfo;
 	int year;
 	int month;
 	int day;
-	long id;
+	long accountID;
+	long transactionID;
 	Intent transactionIntent;
 
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
+		Log.d(TAG, "entering crupdate activity");
 		super.onCreate(savedInstanceState);
-		
-		
+		transactionIntent = getIntent();
+		Log.d(TAG, "got intent");
+
 		setContentView(R.layout.new_transaction_activity_layout);
 
+		accountID = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
 		actionBar = getSupportActionBar();
 		actionBar.setTitle("New Transaction");
 		actionBar.setIcon(R.drawable.ic_action_name);
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(true);
 
-		transactionIntent = getIntent();
-		id = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
-		
 		accounts = new AccountData(this);
 		payeeEditText = (EditText) findViewById(R.id.Payee_editText);
 		transactionTypeSwitch = (SwitchCompat) findViewById(R.id.transactionType_Switch);
 		amountEditText = (EditText) findViewById(R.id.amount_EditText);
 		dateEditText = (EditText) findViewById(R.id.date_EditText);
 		noteEditText = (EditText) findViewById(R.id.note_EditText);
-		
+
 		Calendar c = Calendar.getInstance();
 		year = c.get(Calendar.YEAR);
 		month = c.get(Calendar.MONTH);
@@ -101,7 +101,6 @@ public class NewTransactionActivity extends AppCompatActivity {
 			}
 		});
 
-
 		transactionTypeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
 			@Override
@@ -116,6 +115,31 @@ public class NewTransactionActivity extends AppCompatActivity {
 				}
 			}
 		});
+
+		if (transactionIntent.getLongExtra("trans_id", 0) != 0) {
+			transactionID = transactionIntent.getLongExtra("trans_id", 0);
+			Log.d(TAG, "has transaction_id " + transactionID);
+			editTransactionInfo = accounts.getTransactionInfo(transactionID);
+			editTransactionInfo.moveToFirst();
+
+			transactionTypeSwitch.setChecked(true);
+			BigDecimal amount = new BigDecimal(editTransactionInfo.getString(editTransactionInfo.getColumnIndex(AccountData.TRANSACTION_AMOUNT)));
+			amount = amount.movePointLeft(2);
+
+			if(amount.signum() < 0){
+				transactionTypeSwitch.setChecked(false);
+				amount = amount.abs();
+			}
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(editTransactionInfo.getLong(editTransactionInfo.getColumnIndex(AccountData.TRANSACTION_DATE)));
+
+			payeeEditText.setText(editTransactionInfo.getString(editTransactionInfo.getColumnIndex(AccountData.TRANSACTION_NAME)));
+			amountEditText.setText(amount.toString());
+			//editTransactionAmount.setText(editTransactionInfo.getString(editTransactionInfo.getColumnIndex(AccountData.TRANSACTION_AMOUNT)));
+			dateEditText.setText(new StringBuilder().append(cal.get(Calendar.MONTH)).append("/").append(cal.get(Calendar.DAY_OF_MONTH)).append("/").append(cal.get(Calendar.YEAR)));
+			//editTransactionCategory.setText(editTransactionInfo.getString(editTransactionInfo.getColumnIndex(AccountData.TRANSACTION_CATEGORY)));
+			noteEditText.setText(editTransactionInfo.getString(editTransactionInfo.getColumnIndex(AccountData.TRANSACTION_MEMO)));
+		}
 	}
 	
 	@Override
@@ -177,7 +201,11 @@ public class NewTransactionActivity extends AppCompatActivity {
 
 				String memoString = noteEditText.getEditableText().toString();
 
-				accounts.addTransaction(id, payeeString, amountBD, cal.getTimeInMillis(), memoString);
+				if(0 != transactionID){
+					accounts.updateTransaction(transactionID, payeeString, amountBD, cal.getTimeInMillis(), memoString);
+				} else {
+					accounts.addTransaction(accountID, payeeString, amountBD, cal.getTimeInMillis(), memoString);
+				}
 
 				finish();
 				break;
