@@ -17,6 +17,8 @@ import java.util.Locale;
 public class AccountData {
 	public static int GREEN = Color.parseColor("#216C2A");
 	public static int YELLOW = Color.parseColor("#F6FFDA");
+	public static int GHOST_WHITE = Color.parseColor("#E8E9F3");
+	public static int SILVER = Color.parseColor("#CECECE");
 	public static int RED = Color.parseColor("#C6372F");
 	public static int YELLOWGREEN = Color.parseColor("#bfdeb9");
 	

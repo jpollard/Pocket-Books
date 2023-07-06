@@ -15,7 +15,12 @@ import java.util.Date;
 
 public class TransactionAdapter extends SimpleCursorAdapter{
 	private static String TAG = "TransactionAdapter";
-	private int[] colors = new int[] {AccountData.YELLOW, AccountData.YELLOWGREEN};
+
+	public int[] getColors() {
+		return colors;
+	}
+
+	private int[] colors = new int[] { AccountData.GHOST_WHITE, AccountData.SILVER};
 	Context context;
 	int layout;
 	Cursor c;

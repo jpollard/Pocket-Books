@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/relativeLayout3"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/relativeLayout3"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
 	<!--android:background="#F6FFDA"-->
 
 
@@ -14,6 +14,8 @@
 		android:layout_height="wrap_content"
 		android:layout_marginStart="16dp"
 		android:layout_marginLeft="16dp"
+		android:layout_marginEnd="16dp"
+		android:layout_marginRight="16dp"
 		android:checked="false"
 		android:hapticFeedbackEnabled="true"
 		android:switchTextAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -24,26 +26,31 @@
 		android:textSize="24sp"
 		app:layout_constraintBottom_toBottomOf="@+id/date_EditText"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="0.0"
-		app:layout_constraintStart_toStartOf="parent" />
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<EditText
 		android:id="@+id/Payee_editText"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="16dp"
 		android:hint="@string/name_of_the_transaction"
 		android:inputType="text|textCapWords|textAutoComplete"
 		android:scrollHorizontally="true"
 		android:singleLine="true"
-		app:layout_constraintEnd_toEndOf="@+id/date_EditText"
-		app:layout_constraintStart_toEndOf="@+id/amount_TextView"
-		app:layout_constraintTop_toBottomOf="@+id/date_EditText" />
+		app:layout_constraintEnd_toEndOf="@+id/transactionType_Switch"
+		app:layout_constraintStart_toStartOf="@+id/guideline2"
+		app:layout_constraintTop_toBottomOf="@+id/transactionType_Switch" />
 
 	<EditText
 		android:id="@+id/amount_EditText"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_margin="0dp"
+		android:layout_marginTop="16dp"
 		android:hint="@string/transaction_amount"
 		android:inputType="numberDecimal"
 		android:scrollHorizontally="true"
@@ -72,29 +79,20 @@
 
 	<EditText
 		android:id="@+id/date_EditText"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:layout_marginLeft="16dp"
 		android:layout_marginTop="16dp"
 		android:layout_marginEnd="16dp"
 		android:layout_marginRight="16dp"
+		android:autoText="false"
+		android:editable="false"
 		android:ems="10"
 		android:inputType="date"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintEnd_toStartOf="@+id/guideline2"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
-
-	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="411dp"
-		android:layout_marginLeft="411dp"
-		android:layout_marginEnd="822dp"
-		android:layout_marginRight="822dp"
-		android:orientation="vertical"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent" />
 
 	<TextView
 		android:id="@+id/amount_TextView"
@@ -124,7 +122,14 @@
 		android:textColor="@color/black"
 		android:textSize="24sp"
 		app:layout_constraintBottom_toBottomOf="@+id/Payee_editText"
-		app:layout_constraintStart_toStartOf="@+id/transactionType_Switch"
-		app:layout_constraintTop_toBottomOf="@+id/transactionType_Switch" />
+		app:layout_constraintStart_toStartOf="@+id/date_EditText"
+		app:layout_constraintTop_toBottomOf="@+id/date_EditText" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="153dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

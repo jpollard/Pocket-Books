@@ -2,37 +2,58 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent" android:layout_height="fill_parent" android:gravity="fill_vertical">
-    <TextView	android:id="@+id/transaction_name" 
-    	android:layout_height="wrap_content" 
-    	android:text="name"
-    	android:textColor="#000"
-    	android:textSize="20dp"
-    	android:maxLength="25"
-    	android:singleLine="true"
-    	android:scrollHorizontally="false" 
-    	android:layout_margin="5dp" 
-    	android:layout_width="wrap_content">
-    	
-    </TextView>
-    <TextView android:id="@+id/transaction_amount"
-    	android:text="amount"
-    	android:layout_weight=".4"
-    	android:layout_height="wrap_content" 
-    	android:layout_alignBaseline="@id/transaction_name"
-    	android:layout_alignParentRight="true"
-    	android:textSize="15dp"  
-    	android:layout_margin="5dp" 
-    	android:drawingCacheQuality="high" android:layout_width="wrap_content">
-    </TextView>
-    <TextView android:id="@+id/transaction_date"
-    	android:layout_width="wrap_content" 
-    	android:layout_alignParentRight="true" 
-    	android:layout_below="@id/transaction_amount"
-    	android:layout_height="wrap_content" 
-    	android:textSize="10dp"
-    	android:textColor="#000"
-    	android:text="2.10.23" android:layout_margin="5dp">
-    </TextView>
+
+	<TextView
+		android:id="@+id/transaction_name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="5dp"
+		android:layout_marginEnd="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_marginBottom="5dp"
+		android:maxLength="25"
+		android:scrollHorizontally="false"
+		android:singleLine="true"
+		android:text="name"
+		android:textColor="#000"
+		android:textSize="20sp">
+
+	</TextView>
+
+	<TextView
+		android:id="@+id/transaction_amount"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@id/transaction_name"
+		android:layout_alignParentRight="true"
+		android:layout_marginStart="5dp"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp"
+		android:layout_marginEnd="16dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginBottom="5dp"
+		android:layout_weight=".4"
+		android:drawingCacheQuality="high"
+		android:text="amount"
+		android:textSize="24sp"></TextView>
+
+	<TextView
+		android:id="@+id/transaction_date"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/transaction_amount"
+		android:layout_alignParentRight="true"
+		android:layout_marginStart="5dp"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp"
+		android:layout_marginEnd="16dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginBottom="5dp"
+		android:text="2.10.23"
+		android:textColor="#000"
+		android:textSize="10dp"></TextView>
     <TextView android:id="@+id/transaction_category"
     	android:layout_width="wrap_content" 
     	android:layout_below="@+id/transaction_date" 
@@ -41,11 +62,18 @@
     	
     	android:textSize="0dp">
     </TextView>
-    <TextView android:id="@+id/transaction_memo"
-    	android:layout_height="wrap_content"
-    	android:layout_below="@id/transaction_name"
-    	android:text="groceries" 
-    	android:textColor="#000"
-    	android:layout_width="wrap_content" android:layout_margin="5dp">
-    </TextView>
+
+	<TextView
+		android:id="@+id/transaction_memo"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/transaction_name"
+		android:layout_marginStart="16dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginTop="5dp"
+		android:layout_marginEnd="5dp"
+		android:layout_marginRight="5dp"
+		android:layout_marginBottom="5dp"
+		android:text="groceries"
+		android:textColor="#000"></TextView>
 </RelativeLayout>

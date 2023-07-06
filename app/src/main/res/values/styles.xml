@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!-- Base application theme. -->
-<style name="BaseAppTheme" parent="Theme.AppCompat.DayNight">
+<style name="PBTheme" parent="Theme.AppCompat.DayNight">
     <!-- Customize your theme here. -->
 
     <!-- provided green color to the ActionBar -->
-    <item name="colorPrimary">#0F9D58</item>
-    <item name="colorPrimaryDark">@color/cardview_shadow_end_color</item>
-    <item name="colorAccent">@color/cardview_shadow_start_color</item>
+    <item name="colorPrimary">@color/green</item>
+    <item name="colorPrimaryDark">@color/green_dark</item>
+    <item name="colorAccent">@color/green       </item>
+    <item name="colorError">@color/PB_RED</item>
+    <item name="colorBackgroundFloating">@color/GHOST_WHITE</item>
+    <item name="actionBarStyle">@style/PBTheme.ActionBarStyle</item>
 </style>
 
     <!-- Declare the theme name that's actually applied in the manifest file. -->
-    <style name="DayTheme" parent="BaseAppTheme" />
-    <style name="NightTheme" parent="BaseAppTheme">
+    <style name="DayTheme" parent="PBTheme" />
+    <style name="NightTheme" parent="PBTheme">
         <item name="colorPrimaryDark">@color/RAISIN_BLACK</item>
         <item name="colorAccent">@color/NON_PHOTO_BLUE</item>
         <item name="android:colorBackground">@color/RAISIN_BLACK</item>
 
+    </style>
+    <style name="PBTheme.ActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/green</item>
+        <item name="android:textColor">@style/PBTheme.ActionBarStyle.TextStyle</item>
+    </style>
+    <style name="PBTheme.ActionBarStyle.TextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/GHOST_WHITE</item>
     </style>
 </resources>
