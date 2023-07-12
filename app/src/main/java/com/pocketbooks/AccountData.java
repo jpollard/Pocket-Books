@@ -109,7 +109,6 @@ public class AccountData {
 	
 	/**
 	 * public Cursor getAccounts()
-	 * 
 	 * returns a Cursor containing all the rows in ACCOUNTS_TABLE, unsorted.
 	 * 
 	 * @return Cursor
@@ -147,7 +146,6 @@ public class AccountData {
 	
 	/**
 	 * <b> public Cursor getAccountInfo (Long id) </b>
-	 * 
 	 * This returns a Cursor that is populated with the info of one of the ACCOUNTS_TABLE rows, specified by
 	 * the 'id' parameter.
 	 * 
@@ -171,7 +169,6 @@ public class AccountData {
 	
 	/**
 	 * <b> public Cursor getTransactionInfo(Long id) </b>
-	 * 
 	 * Get the details of the transaction that has the _id passed in by the parameter.
 	 * 
 	 * @param id - the transaction id of the transaction that the info needs to come from
@@ -189,10 +186,8 @@ public class AccountData {
 	}
 	
 	/**
-	 * 
 	 * Get the list of "transactions" from the TRANSACTION_TABLE based on the "id" of the the account that
 	 * they are associated with.
-	 * 
 	 * public Cursor getTransactions(long id)
 	 * 
 	 * @param id - the account from which transactions are being requested.
@@ -202,33 +197,34 @@ public class AccountData {
 		Log.d(TAG, "Trying to get transactions");
 		Cursor cursor;
 		String[] columnsToQuery = {TRANSACTION_ID, TRANSACTION_ACCOUNT_ID, TRANSACTION_NAME, TRANSACTION_AMOUNT, TRANSACTION_DATE, TRANSACTION_CATEGORY, TRANSACTION_MEMO};
-		
+
 		Log.d(TAG, "Trying to open DB");
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Log.d(TAG, "Opened DB");
-		
+
 		Log.d(TAG, "Querying DB");
 		cursor = db.query(DBHelper.TRANSACTIONS_TABLE, columnsToQuery, TRANSACTION_ACCOUNT_ID + " like " + id, null, null, null, TRANSACTION_DATE + " DESC");
 		Log.d(TAG, "returning tables in a cursor");
-		Log.d(TAG, cursor.getColumnName(cursor.getColumnIndex(TRANSACTION_ID)));
-		
-		
+		try {
+			Log.d(TAG, cursor.getColumnName(cursor.getColumnIndexOrThrow(TRANSACTION_ID)));
+		} catch (Exception e) {
+			Log.d(TAG, e.toString());
+		}
+
 		return cursor;
 	}
-	
+
 	/**
 	 * <b>public void addTransaction(long id, String payee, BigDecimal amount, String date, String memo)</b>
-	 * 
-	 * Add a new transaction to the TRANSACTIONS_TABLE, where "id" is the account id to associate the 
-	 * transaction with it, "payee" is the person the transaction is for/from, "amount" is the amount, 
+	 * Add a new transaction to the TRANSACTIONS_TABLE, where "id" is the account id to associate the
+	 * transaction with it, "payee" is the person the transaction is for/from, "amount" is the amount,
 	 * "date" is the date, "memo" is the memo of the transaction.
-	 * 
-	 * @param id - the account_id that the transaction belongs to
-	 * @param payee - a string to describe the name of the transaction (i.e. "Walmart" or "Paycheck")
-	 * @param amount - the amount of the transaction
-	 * @param date - a string date of the transaction
-	 * @param memo - a simple, but more thorough description of the transaction (i.e. "Groceries" or "2/17/09 - 2/24/09")
 	 *
+	 * @param id     - the account_id that the transaction belongs to
+	 * @param payee  - a string to describe the name of the transaction (i.e. "Walmart" or "Paycheck")
+	 * @param amount - the amount of the transaction
+	 * @param date   - a string date of the transaction
+	 * @param memo   - a simple, but more thorough description of the transaction (i.e. "Groceries" or "2/17/09 - 2/24/09")
 	 */
 	public void addTransaction(long id, String payee, BigDecimal amount, long date, String memo){
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -251,7 +247,6 @@ public class AccountData {
 	
 	/**
 	 * <b> public void updateTransaction (long id, String payee, BigDecimal amount, String date, String memo)</b>
-	 * 
 	 * Update the transaction represented by id to the new values that have been passed in.
 	 * 
 	 * @param id - the transaction id
@@ -281,7 +276,6 @@ public class AccountData {
 	
 	/**
 	 * <b> public void deleteTransaction (long id)</b>
-	 * 
 	 * Delete transaction from the TRANSACTIONS_TABLE based on the "id" parameter.
 	 * 
 	 * @param id - the id of the transaction to delete.
