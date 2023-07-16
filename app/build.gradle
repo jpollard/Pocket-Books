@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        Release {
+            storeFile file('/home/jwp/StudioProjects/PocketBooks/Keystore/effupayme.keystore')
+            storePassword 'code4joe'
+            keyAlias 'effupayme'
+            keyPassword 'code4joe'
+        }
+    }
     compileSdkVersion 33
     buildToolsVersion "32.0.0"
 
@@ -8,12 +16,14 @@ android {
         applicationId "com.pocketbooks"
         minSdkVersion 14
         targetSdkVersion 33
+        versionCode 2
     }
 
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.Release
         }
     }
 
