@@ -1,31 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!-- Base application theme. -->
-<style name="Theme.Pocketbooks.DayNight" parent="Theme.AppCompat.DayNight">
-    <!-- provided green color to the ActionBar -->
-    <item name="colorPrimary">@color/PB_GREEN</item>
-    <item name="colorPrimaryDark">@color/green_dark</item>
-    <item name="colorAccent">@color/green</item>
-    <item name="colorError">@color/PB_RED</item>
-
-    <item name="actionBarStyle">@style/Widget.PocketBooks.ActionBar</item>
-</style>
+    <!-- Base application theme. -->
+    <style name="Theme.Pocketbooks.DayNight" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- provided green color to the ActionBar -->
+        <item name="colorPrimary">@color/PB_GREEN</item>
+        <item name="colorPrimaryDark">@color/green_dark</item>
+        <item name="colorAccent">@color/green</item>
+        <item name="colorError">@color/PB_RED</item>
+    </style>
     <!-- Declare the theme name that's actually applied in the manifest file. -->
-    <style name="DayTheme" parent="Theme.Pocketbooks.DayNight" />
+    <style name="DayTheme" parent="Theme.Pocketbooks.DayNight">
+        <item name="colorBackgroundFloating">@color/PB_GREEN</item>
+
+    </style>
 
     <style name="NightTheme" parent="Theme.Pocketbooks.DayNight">
         <item name="colorPrimaryDark">@color/RAISIN_BLACK</item>
         <item name="colorAccent">@color/NON_PHOTO_BLUE</item>
-        <item name="android:colorBackground">@color/RAISIN_BLACK</item>
     </style>
 
-    <style name="Widget.PocketBooks.ActionBar" parent="Widget.AppCompat.ActionBar">
-        <item name="android:panelColorBackground">@color/PB_GREEN</item>
-        <item name="android:background">@color/green</item>
-        <item name="android:textColor">@style/Widget.PocketBooks.ActionBar.Text</item>
-    </style>
-
-    <style name="Widget.PocketBooks.ActionBar.Text" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/GHOST_WHITE</item>
-    </style>
 </resources>
