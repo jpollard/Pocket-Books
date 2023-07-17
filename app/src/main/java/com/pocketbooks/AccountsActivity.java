@@ -39,7 +39,6 @@ public class AccountsActivity extends AppCompatActivity {
 		// Set up action bar
 		actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.app_name);
-		actionBar.setIcon(R.drawable.ic_action_name);
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(true);
 

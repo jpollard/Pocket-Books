@@ -2,17 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:background="#F5FFDA">
-	
+	android:background="#F5FFDA"
+	android:theme="@style/DayTheme">
 
-	<LinearLayout android:id="@+id/footer"
+
+	<LinearLayout
+		android:id="@+id/footer"
 		android:layout_alignParentBottom="true"
-		android:background="#216C2A" 
-		android:clickable="true" 
-		android:focusable="true" 
-		android:hapticFeedbackEnabled="true" 
-		android:focusableInTouchMode="true" 
-		android:layout_height="wrap_content" android:layout_width="fill_parent" android:baselineAligned="false" android:layout_centerHorizontal="true">
+		android:background="#216C2A"
+		android:clickable="true"
+		android:focusable="true"
+		android:hapticFeedbackEnabled="true"
+		android:focusableInTouchMode="true"
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
+		android:baselineAligned="false"
+		android:layout_centerHorizontal="true">
 		
 		<ImageView android:id="@+id/addTransactionIcon"
 			android:src="@android:drawable/ic_menu_add" 

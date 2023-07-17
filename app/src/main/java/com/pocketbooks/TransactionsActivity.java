@@ -2,7 +2,6 @@ package com.pocketbooks;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -51,7 +50,6 @@ public class TransactionsActivity extends AppCompatActivity {
 
 		actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.app_name);
-		actionBar.setIcon(R.drawable.ic_action_name);
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(true);
 
@@ -155,9 +153,9 @@ public class TransactionsActivity extends AppCompatActivity {
     	BigDecimal accountBalance = new BigDecimal(amountNoDecimal);
     	accountBalance = accountBalance.movePointLeft(2);
     	
-    	mAccountBalance.setTextColor(Color.GREEN);
+    	mAccountBalance.setTextColor(getResources().getColor(R.color.PB_GREEN));
     	if(accountBalance.signum() < 0){
-    		mAccountBalance.setTextColor(Color.RED);
+			mAccountBalance.setTextColor(getResources().getColor(R.color.PB_RED));
     	}
     	
         actionBar.setTitle(accountInfo.getString(accountInfo.getColumnIndex(AccountData.ACCOUNT_NAME)));

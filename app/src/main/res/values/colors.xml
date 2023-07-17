@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="PB_GREEN">#216C2A</color>
+    <color name="PB_GREEN">#007000</color>
     <color name="PB_YELLOW">#F6FFDA</color>
     <color name="PB_RED">#C6372F</color>
     <color name="PB_YELLOWGREEN">#BFDEB9</color>
@@ -11,7 +11,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="GHOST_WHITE">#E8E9F3</color>
+    <color name="GHOST_WHITE">#F8F8F8</color>
     <color name="SILVER">#CECECE</color>
     <color name="FRENCH_GRAY">#A6A6A8</color>
     <color name="RAISIN_BLACK">#272635</color>

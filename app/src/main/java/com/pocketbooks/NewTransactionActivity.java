@@ -58,7 +58,6 @@ public class NewTransactionActivity extends AppCompatActivity {
 		accountID = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
 		actionBar = getSupportActionBar();
 		actionBar.setTitle("New Transaction");
-		actionBar.setIcon(R.drawable.ic_action_name);
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(true);
 
@@ -78,7 +77,7 @@ public class NewTransactionActivity extends AppCompatActivity {
 		
 		transactionTypeSwitch.setChecked(false);
 		transactionTypeSwitch.setTextColor(getResources().getColor(R.color.PB_RED));
-		transactionTypeSwitch.setText("Withdrawal");
+        transactionTypeSwitch.setText("Expense");
 		
 		dateEditText.setOnFocusChangeListener(new OnFocusChangeListener(){
 
@@ -106,12 +105,12 @@ public class NewTransactionActivity extends AppCompatActivity {
 			@Override
 			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 				if (transactionTypeSwitch.isChecked()){
-					transactionTypeSwitch.setTextColor(getResources().getColor(R.color.PB_GREEN));
-					transactionTypeSwitch.setText("Deposit");
+                    transactionTypeSwitch.setTextColor(getResources().getColor(R.color.PB_GREEN));
+                    transactionTypeSwitch.setText("Income");
 				}
 				if (!transactionTypeSwitch.isChecked()){
-					transactionTypeSwitch.setText("Withdrawal");
-					transactionTypeSwitch.setTextColor(getResources().getColor(R.color.PB_RED));
+                    transactionTypeSwitch.setText("Expense");
+                    transactionTypeSwitch.setTextColor(getResources().getColor(R.color.PB_RED));
 				}
 			}
 		});

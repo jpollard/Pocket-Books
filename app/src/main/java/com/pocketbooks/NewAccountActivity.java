@@ -1,7 +1,5 @@
 package com.pocketbooks;
 
-import java.math.BigDecimal;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,12 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.math.BigDecimal;
+
 public class NewAccountActivity extends AppCompatActivity {
 	private static String TAG = "newAccount";
 	EditText accountName;
 	EditText accountBalance;
 	Button done;
-	AccountData accounts;  
+	AccountData accounts;
 	ActionBar actionBar;
 
 	@Override
@@ -33,7 +33,6 @@ public class NewAccountActivity extends AppCompatActivity {
 		actionBar = getSupportActionBar();
 		actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.new_account_title);
-		actionBar.setIcon(R.drawable.ic_action_name);
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(true);
 		

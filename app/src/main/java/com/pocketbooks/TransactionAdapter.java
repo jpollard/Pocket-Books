@@ -20,7 +20,7 @@ public class TransactionAdapter extends SimpleCursorAdapter{
 		return colors;
 	}
 
-	private int[] colors = new int[] { AccountData.GHOST_WHITE, AccountData.SILVER};
+	private int[] colors;
 	Context context;
 	int layout;
 	Cursor c;
@@ -35,19 +35,20 @@ public class TransactionAdapter extends SimpleCursorAdapter{
 	public TransactionAdapter(Context context, int layout, Cursor c,
 			String[] from, int[] to) {
 		super(context, layout, c, from, to);
-		// TODO Auto-generated constructor stub
+
 		this.context = context;
 		this.layout = layout;
 		this.c = c;
 		this.from = from;
 		this.to = to;
 		inflater = LayoutInflater.from(context);
-		
+
 		transactionNameIndex = c.getColumnIndex(AccountData.TRANSACTION_NAME);
 		transactionDateIndex = c.getColumnIndex(AccountData.TRANSACTION_DATE);
 		transactionAmountIndex = c.getColumnIndex(AccountData.TRANSACTION_AMOUNT);
 		transactionMemoIndex = c.getColumnIndex(AccountData.TRANSACTION_MEMO);
-		
+		colors = new int[]{context.getResources().getColor(R.color.WHITE),
+				context.getResources().getColor((R.color.GHOST_WHITE))};
 	}
 
 	@Override
@@ -82,8 +83,7 @@ public class TransactionAdapter extends SimpleCursorAdapter{
 		transactionMemo.setText(cursor.getString(transactionMemoIndex));
 		
 		//TODO Setup BigDecimal - CurrencyFormat
-		
-		
+
 		BigDecimal amount = new BigDecimal(cursor.getString(transactionAmountIndex));
 		amount = amount.movePointLeft(2);
 		transactionAmount.setTextColor(AccountData.GREEN);
