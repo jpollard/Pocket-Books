@@ -13,43 +13,45 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/balance"
-        android:textSize="32sp"
+        android:textSize="20sp"
         myapp:layout_constraintEnd_toStartOf="@+id/balanceTextView"
         myapp:layout_constraintStart_toStartOf="parent"
-		myapp:layout_constraintTop_toTopOf="parent" />
+        myapp:layout_constraintTop_toTopOf="parent" />
 
-	<TextView
-		android:id="@+id/balanceTextView"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_margin="16dp"
-		android:textSize="32sp"
-		android:textStyle="bold"
-		myapp:layout_constraintEnd_toEndOf="parent"
-		myapp:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/balanceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        myapp:layout_constraintEnd_toEndOf="parent"
+        myapp:layout_constraintTop_toTopOf="parent" />
 
-	<ListView
-		android:id="@+id/transactionListView"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:layout_marginTop="8dp"
-		myapp:layout_constraintBottom_toBottomOf="parent"
-		myapp:layout_constraintEnd_toEndOf="parent"
-		myapp:layout_constraintStart_toStartOf="parent"
-		myapp:layout_constraintTop_toBottomOf="@id/balanceLabelTextView" />
+    <ListView
+        android:id="@+id/transactionListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        myapp:layout_constraintBottom_toBottomOf="parent"
+        myapp:layout_constraintEnd_toEndOf="parent"
+        myapp:layout_constraintStart_toStartOf="parent"
+        myapp:layout_constraintTop_toBottomOf="@id/balanceLabelTextView" />
 
-	<com.google.android.material.floatingactionbutton.FloatingActionButton
-		android:id="@+id/newTransactionFAB"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginEnd="16dp"
-		android:layout_marginRight="16dp"
-		android:layout_marginBottom="16dp"
-		android:clickable="true"
-		android:contentDescription="@string/add_new_transaction"
-		android:focusable="true"
-		myapp:layout_constraintBottom_toBottomOf="parent"
-		myapp:layout_constraintEnd_toEndOf="parent"
-		myapp:srcCompat="@android:drawable/ic_menu_add" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/newTransactionFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:minWidth="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/add_new_transaction"
+        android:focusable="true"
+        myapp:layout_constraintBottom_toBottomOf="parent"
+        myapp:layout_constraintEnd_toEndOf="parent"
+        myapp:srcCompat="@android:drawable/ic_menu_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
