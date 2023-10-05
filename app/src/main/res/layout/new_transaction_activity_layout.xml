@@ -13,14 +13,15 @@
         android:id="@+id/transactionType_Switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:minWidth="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:checked="false"
         android:hapticFeedbackEnabled="true"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
         android:switchTextAppearance="@style/TextAppearance.AppCompat.Body1"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -86,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/amount_EditText"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
+    <TextView
         android:id="@+id/date_EditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -95,10 +96,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:autoText="false"
-        android:editable="false"
         android:ems="10"
         android:inputType="date"
+        android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
