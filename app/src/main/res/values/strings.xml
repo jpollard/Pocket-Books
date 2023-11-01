@@ -14,9 +14,11 @@
     <string name="name_of_the_transaction">Name of the transaction.</string>
     <string name="deposit">Deposit</string>
     <string name="expense">Expense</string>
+    <string name="income">Income</string>
     <string name="transaction_amount">Transaction Amount</string>
     <string name="note">Note:</string>
     <string name="transaction_notes">Transaction Notes</string>
     <string name="sql_account_name">account_name</string>
     <string name="add_new_account">Add new account.</string>
+    <string name="edit_transaction">Edit Transaction</string>
 </resources>
