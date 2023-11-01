@@ -107,16 +107,17 @@ public class NewTransactionActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (transactionTypeSwitch.isChecked()) {
                     transactionTypeSwitch.setTextColor(getResources().getColor(R.color.PB_GREEN));
-                    transactionTypeSwitch.setText("Income");
+                    transactionTypeSwitch.setText(R.string.income);
                 }
                 if (!transactionTypeSwitch.isChecked()) {
-                    transactionTypeSwitch.setText("Expense");
+                    transactionTypeSwitch.setText(R.string.expense);
                     transactionTypeSwitch.setTextColor(getResources().getColor(R.color.PB_RED));
                 }
             }
         });
 
         if (transactionIntent.getLongExtra("trans_id", 0) != 0) {
+            actionBar.setTitle(R.string.edit_transaction);
             transactionID = transactionIntent.getLongExtra("trans_id", 0);
             Log.d(TAG, "has transaction_id " + transactionID);
             editTransactionInfo = accounts.getTransactionInfo(transactionID);
