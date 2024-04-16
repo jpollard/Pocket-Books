@@ -38,7 +38,6 @@
 			</intent-filter>
 		</receiver>
         -->
-
     </application>
 
     <!-- AdMob SDK requires Internet permission -->
