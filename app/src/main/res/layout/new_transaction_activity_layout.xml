@@ -6,8 +6,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:theme="@style/DayTheme">
-    <!--android:background="#F6FFDA"-->
-
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/transactionType_Switch"
