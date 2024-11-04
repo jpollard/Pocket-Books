@@ -9,16 +9,22 @@
         android:theme="@style/Theme.Pocketbooks.Splash">
         <activity
             android:name="AccountsActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Pocketbooks.DayNight">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="NewAccountActivity" />
-        <activity android:name="TransactionsActivity" />
+        <activity
+            android:name="NewAccountActivity"
+            android:theme="@style/Theme.Pocketbooks.DayNight" />
+        <activity
+            android:name="TransactionsActivity"
+            android:theme="@style/Theme.Pocketbooks.DayNight" />
         <activity
             android:name="NewTransactionActivity"
+            android:theme="@style/Theme.Pocketbooks.DayNight"
             android:windowSoftInputMode="stateVisible|adjustPan" />
 
         <!-- The application's publisher ID assigned by AdMob -->

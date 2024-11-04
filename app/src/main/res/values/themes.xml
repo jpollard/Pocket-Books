@@ -8,16 +8,12 @@
         <item name="colorError">@color/PB_RED</item>
     </style>
 
-    <style name="DayTheme" parent="Theme.Pocketbooks.DayNight">
-        <item name="colorBackgroundFloating">@color/PB_GREEN</item>
-    </style>
-
     <style name="NightTheme" parent="Theme.Pocketbooks.DayNight">
         <item name="colorPrimaryDark">@color/RAISIN_BLACK</item>
         <item name="colorAccent">@color/NON_PHOTO_BLUE</item>
     </style>
 
     <style name="Theme.Pocketbooks.Splash" parent="Theme.SplashScreen">
-        <item name="postSplashScreenTheme">@style/DayTheme</item>
+        <item name="postSplashScreenTheme">@style/Theme.Pocketbooks.DayNight</item>
     </style>
 </resources>

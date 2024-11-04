@@ -1,8 +1,6 @@
 package com.pocketbooks;
 
 
-import java.math.BigDecimal;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+
 public class AccountAdapter extends SimpleCursorAdapter{
-    private final static String TAG = "AccountAdapter";
+    private final static String TAG = "com.pocketbooks.AccountAdapter";
 
     Context context;
     int layout;
