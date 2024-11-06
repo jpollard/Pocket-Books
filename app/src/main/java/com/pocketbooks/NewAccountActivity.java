@@ -31,7 +31,6 @@ public class NewAccountActivity extends AppCompatActivity {
 		setContentView(R.layout.new_account_activity_layout);
 
 		actionBar = getSupportActionBar();
-		actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.new_account_title);
 		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(true);

@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,9 +34,9 @@ public class AccountsActivity extends AppCompatActivity {
 	FloatingActionButton mNewAccount;
 
 	public void onCreate(Bundle savedInstanceState){
+		SplashScreen splash = SplashScreen.installSplashScreen(this);
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "Starting account");
-
 		// Set up action bar
 		actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.app_name);

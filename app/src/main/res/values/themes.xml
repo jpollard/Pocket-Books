@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Pocketbooks.DayNight" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- provided green color to the ActionBar -->
+    <style name="Theme.Pocketbooks.DayNight" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/PB_GREEN</item>
         <item name="colorPrimaryDark">@color/green_dark</item>
         <item name="colorAccent">@color/green</item>
         <item name="colorError">@color/PB_RED</item>
     </style>
-    <!-- Declare the theme name that's actually applied in the manifest file. -->
+
     <style name="DayTheme" parent="Theme.Pocketbooks.DayNight">
         <item name="colorBackgroundFloating">@color/PB_GREEN</item>
-
     </style>
 
     <style name="NightTheme" parent="Theme.Pocketbooks.DayNight">
@@ -19,4 +17,7 @@
         <item name="colorAccent">@color/NON_PHOTO_BLUE</item>
     </style>
 
+    <style name="Theme.Pocketbooks.Splash" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/DayTheme</item>
+    </style>
 </resources>

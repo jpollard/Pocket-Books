@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pocketbooks"
     android:versionName="2.11"
     android:versionCode="6">
 
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Pocketbooks.DayNight">
+        android:theme="@style/Theme.Pocketbooks.Splash">
         <activity
             android:name="AccountsActivity"
             android:exported="true">
