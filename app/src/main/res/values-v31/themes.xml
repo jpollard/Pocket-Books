@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="ThemeOverlay.Pocketbooks.DayNight" parent="">
-        <item name="android:windowSplashScreenBackground">@color/green_dark</item>
+        <item name="windowSplashScreenBackground">@color/ic_launcher_background</item>
     </style>
 </resources> 

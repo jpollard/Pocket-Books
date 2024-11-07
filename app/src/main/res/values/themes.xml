@@ -14,7 +14,8 @@
     </style>
 
     <style name="Theme.Pocketbooks.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/PB_GREEN</item>
+        <item name="windowSplashScreenBackground">@color/ic_launcher_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/Theme.Pocketbooks.DayNight</item>
     </style>
 </resources>
