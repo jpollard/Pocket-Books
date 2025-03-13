@@ -13,5 +13,6 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/green_dark</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/PB_Green</item>
     </style>
 </resources>
