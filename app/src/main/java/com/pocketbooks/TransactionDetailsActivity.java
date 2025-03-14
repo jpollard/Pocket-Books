@@ -63,11 +63,11 @@ public class TransactionDetailsActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
 
         accounts = new AccountData(this);
-        payeeEditText = (EditText) findViewById(R.id.Payee_editText);
-        transactionTypeSwitch = (SwitchCompat) findViewById(R.id.transactionType_Switch);
-        amountEditText = (EditText) findViewById(R.id.amount_EditText);
-        dateTextView = (TextView) findViewById(R.id.date_EditText);
-        noteEditText = (EditText) findViewById(R.id.note_EditText);
+        payeeEditText = findViewById(R.id.Payee_editText);
+        transactionTypeSwitch = findViewById(R.id.transactionType_Switch);
+        amountEditText = findViewById(R.id.amount_EditText);
+        dateTextView = findViewById(R.id.date_EditText);
+        noteEditText = findViewById(R.id.note_EditText);
 
         cal = Calendar.getInstance();
         year = cal.get(Calendar.YEAR);
@@ -202,7 +202,7 @@ public class TransactionDetailsActivity extends AppCompatActivity {
 
                 //String dateString = dateEditText.getText().toString();
                 if (cal == null) {
-                    Calendar cal = Calendar.getInstance();
+                    cal = Calendar.getInstance();
                 }
                 cal.set(year, month, day);
                 String memoString = noteEditText.getEditableText().toString();
