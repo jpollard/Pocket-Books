@@ -22,7 +22,7 @@
         <activity
             android:name="TransactionsActivity" />
         <activity
-            android:name="NewTransactionActivity"
+            android:name="TransactionDetailsActivity"
             android:windowSoftInputMode="stateVisible|adjustPan" />
 
         <!-- The application's publisher ID assigned by AdMob -->
