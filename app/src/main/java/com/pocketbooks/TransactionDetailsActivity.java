@@ -26,9 +26,9 @@ import androidx.appcompat.widget.SwitchCompat;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-public class NewTransactionActivity extends AppCompatActivity {
+public class TransactionDetailsActivity extends AppCompatActivity {
     private static final int DATE_DIALOG = 0;
-    private static String TAG = "NewTransactionActivity";
+    private static String TAG = "Transaction Details Activity";
 
     ActionBar actionBar;
     EditText payeeEditText;
@@ -45,7 +45,7 @@ public class NewTransactionActivity extends AppCompatActivity {
     long accountID;
     long transactionID;
     Intent transactionIntent;
-
+    Calendar cal;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,11 +54,11 @@ public class NewTransactionActivity extends AppCompatActivity {
         transactionIntent = getIntent();
         Log.d(TAG, "got intent");
 
-        setContentView(R.layout.new_transaction_activity_layout);
+        setContentView(R.layout.transaction_details_activity_layout);
 
         accountID = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
         actionBar = getSupportActionBar();
-        actionBar.setTitle("New Transaction");
+        actionBar.setTitle(R.string.new_transaction_title);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
@@ -69,16 +69,14 @@ public class NewTransactionActivity extends AppCompatActivity {
         dateTextView = (TextView) findViewById(R.id.date_EditText);
         noteEditText = (EditText) findViewById(R.id.note_EditText);
 
-        Calendar c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-        day = c.get(Calendar.DAY_OF_MONTH);
-
-        updateDate();
+        cal = Calendar.getInstance();
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
 
         transactionTypeSwitch.setChecked(false);
         transactionTypeSwitch.setTextColor(getResources().getColor(R.color.PB_RED));
-        transactionTypeSwitch.setText("Expense");
+        transactionTypeSwitch.setText(R.string.expense);
 
         dateTextView.setOnFocusChangeListener(new OnFocusChangeListener() {
 
@@ -120,6 +118,7 @@ public class NewTransactionActivity extends AppCompatActivity {
             actionBar.setTitle(R.string.edit_transaction);
             transactionID = transactionIntent.getLongExtra("trans_id", 0);
             Log.d(TAG, "has transaction_id " + transactionID);
+            Log.d(TAG, "Date " + month);
             editTransactionInfo = accounts.getTransactionInfo(transactionID);
             editTransactionInfo.moveToFirst();
 
@@ -131,8 +130,11 @@ public class NewTransactionActivity extends AppCompatActivity {
                 transactionTypeSwitch.setChecked(false);
                 amount = amount.abs();
             }
-            Calendar cal = Calendar.getInstance();
+            //Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(editTransactionInfo.getLong(editTransactionInfo.getColumnIndex(AccountData.TRANSACTION_DATE)));
+            year = cal.get(Calendar.YEAR);
+            month = cal.get(Calendar.MONTH);
+            day = cal.get(Calendar.DAY_OF_MONTH);
 
             payeeEditText.setText(editTransactionInfo.getString(editTransactionInfo.getColumnIndex(AccountData.TRANSACTION_NAME)));
             amountEditText.setText(amount.toString());
@@ -141,6 +143,8 @@ public class NewTransactionActivity extends AppCompatActivity {
             //editTransactionCategory.setText(editTransactionInfo.getString(editTransactionInfo.getColumnIndex(AccountData.TRANSACTION_CATEGORY)));
             noteEditText.setText(editTransactionInfo.getString(editTransactionInfo.getColumnIndex(AccountData.TRANSACTION_MEMO)));
         }
+        updateDate();
+
     }
 
     @Override
@@ -197,9 +201,10 @@ public class NewTransactionActivity extends AppCompatActivity {
                 }
 
                 //String dateString = dateEditText.getText().toString();
-                Calendar cal = Calendar.getInstance();
+                if (cal == null) {
+                    Calendar cal = Calendar.getInstance();
+                }
                 cal.set(year, month, day);
-
                 String memoString = noteEditText.getEditableText().toString();
 
                 if (0 != transactionID) {

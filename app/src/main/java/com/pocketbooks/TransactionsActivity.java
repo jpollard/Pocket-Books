@@ -48,7 +48,7 @@ public class TransactionsActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final Intent newTransactionIntent = new Intent(this, NewTransactionActivity.class);
+        final Intent newTransactionIntent = new Intent(this, TransactionDetailsActivity.class);
 
         setContentView(R.layout.transactions_activity_layout);
 
@@ -57,7 +57,7 @@ public class TransactionsActivity extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-        editTransactionIntent = new Intent(this, NewTransactionActivity.class);
+        editTransactionIntent = new Intent(this, TransactionDetailsActivity.class);
         transactions = new AccountData(this);
         transactionIntent = getIntent();
         id = transactionIntent.getLongExtra(AccountData.ACCOUNT_ID, 0);
@@ -196,7 +196,7 @@ public class TransactionsActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case 0:
-                editTransactionIntent = new Intent(this, NewTransactionActivity.class);
+                editTransactionIntent = new Intent(this, TransactionDetailsActivity.class);
                 Log.d(TAG, "id of editTran " + info.id);
                 editTransactionIntent.putExtra("trans_id", info.id);
                 startActivity(editTransactionIntent);
