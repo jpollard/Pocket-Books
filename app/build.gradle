@@ -1,13 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
-    buildToolsVersion "32.0.0"
 
     defaultConfig {
         applicationId "com.pocketbooks"
-        minSdkVersion 28
-        targetSdkVersion 33
+        minSdkVersion 21
+        targetSdkVersion 34
     }
 
     buildTypes {
@@ -19,9 +17,14 @@ android {
 
     dependencies {
         def appcompat_version = "1.6.1"
+        def room_version = "2.7.0"
+
         implementation "androidx.appcompat:appcompat:$appcompat_version"
         implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
         implementation "androidx.core:core-splashscreen:1.0.1"
+
+        implementation "androidx.room:room-runtime:$room_version"
+        annotationProcessor "androidx.room:room-compiler:$room_version"
     }
     namespace 'com.pocketbooks'
 }
