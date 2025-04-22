@@ -6,7 +6,7 @@
         android:checkable="false"
         android:checked="false"
         android:enabled="true"
-        android:title="Delete"
+        android:title="@string/delete"
         android:titleCondensed="Delete"
         android:visible="true">
 
