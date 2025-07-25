@@ -83,7 +83,7 @@ public class AccountsActivity extends AppCompatActivity {
 		cursor = accountDao.getAll();
         //Query current accountNames using old db
         // accounts = new AccountData(this);
-        Log.d(TAG, "Starting getTables.");
+        Log.d(TAG, "Starting getAccounts.");
         //cursor = accounts.getAccounts();
         startManagingCursor(cursor);
         
