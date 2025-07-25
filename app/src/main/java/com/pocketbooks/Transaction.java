@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity
+@Entity(tableName = "pocketBooksTransactions")
 public class Transaction
 {
     @PrimaryKey

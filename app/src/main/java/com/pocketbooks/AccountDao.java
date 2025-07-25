@@ -1,9 +1,12 @@
 package com.pocketbooks;
 
+import android.database.Cursor;
+import androidx.room.Dao;
 import androidx.room.Query;
 
-public class AccountDao
+@Dao
+public interface AccountDao
 {
     @Query("SELECT * FROM pocketBooksAccounts")
-    List<Account> getAll();
+    Cursor getAll();
 }

@@ -4,10 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "pocketBooksAccounts")
 public class Account
 {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int _id;
 
     @ColumnInfo(name = "account_name")

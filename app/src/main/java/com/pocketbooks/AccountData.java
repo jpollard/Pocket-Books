@@ -307,7 +307,7 @@ public class AccountData {
 
                 //Create Accounts table
                 sql = String.format("CREATE TABLE %s(_id integer primary key autoincrement, " +
-                        "account_name varchar, " +
+                        "account_name TEXT, " +
                         "account_balance TEXT)", ACCOUNTS_TABLE);
                 Log.d(TAG, "createTable sql: " + sql);
                 db.execSQL(sql);

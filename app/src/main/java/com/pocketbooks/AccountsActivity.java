@@ -19,6 +19,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
+import androidx.room.Room;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -72,11 +73,18 @@ public class AccountsActivity extends AppCompatActivity {
 			}
         	
         }); 
-        
-        //Query current accountNames
-        accounts = new AccountData(this);
+        // New db using roomdb
+		PocketbooksDatabase db = Room.databaseBuilder(getApplicationContext(),
+				PocketbooksDatabase.class,
+				"pocketBooks.db").
+				allowMainThreadQueries().build();
+
+		AccountDao accountDao = db.accountDao();
+		cursor = accountDao.getAll();
+        //Query current accountNames using old db
+        // accounts = new AccountData(this);
         Log.d(TAG, "Starting getTables.");
-        cursor = accounts.getAccounts();
+        //cursor = accounts.getAccounts();
         startManagingCursor(cursor);
         
         // Construct adapter
