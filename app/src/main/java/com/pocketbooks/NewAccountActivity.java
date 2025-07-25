@@ -1,5 +1,6 @@
 package com.pocketbooks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,12 +21,14 @@ public class NewAccountActivity extends AppCompatActivity {
     Button done;
     AccountData accounts;
     ActionBar actionBar;
+    Intent accountIntent;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
         accounts = new AccountData(this);
+        accountIntent = getIntent();
 
         // Setup GUI
         setContentView(R.layout.new_account_activity_layout);
@@ -61,6 +64,14 @@ public class NewAccountActivity extends AppCompatActivity {
 //		});
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(accountIntent.hasExtra("account_id")){
+            //TODO Get account info
+            // TODO Update fields with account info.
+        }
+    }
     // method to inflate the options menu when
     // the user opens the menu for the first time
     @Override

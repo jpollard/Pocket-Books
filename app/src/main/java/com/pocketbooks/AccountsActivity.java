@@ -33,6 +33,7 @@ public class AccountsActivity extends AppCompatActivity {
 	Cursor cursor;
 	ListView list;
 	FloatingActionButton mNewAccount;
+	AccountDao accountDao;
 
 	public void onCreate(Bundle savedInstanceState){
 		SplashScreen splash = SplashScreen.installSplashScreen(this);
@@ -79,7 +80,7 @@ public class AccountsActivity extends AppCompatActivity {
 				"pocketBooks.db").
 				allowMainThreadQueries().build();
 
-		AccountDao accountDao = db.accountDao();
+		accountDao = db.accountDao();
 		cursor = accountDao.getAll();
         //Query current accountNames using old db
         // accounts = new AccountData(this);
@@ -131,7 +132,7 @@ public class AccountsActivity extends AppCompatActivity {
 	public void onDestroy(){
 		super.onDestroy();
 		cursor.close();
-		accounts.close();
+		//accounts.close();
 	}
 	
 	// Context Menu
@@ -155,6 +156,9 @@ public class AccountsActivity extends AppCompatActivity {
     			cursor.deactivate();
     			cursor.requery();
     			return true;
+			case R.id.account_edit:
+
+				startActivity(new Intent(this, NewAccountActivity.class).putExtra("account_id", info. id));
     	}
     	return false;
     }
